@@ -21,7 +21,7 @@ func main() {
 	// Get database connection string from environment
 	dbURL := os.Getenv("DATABASE_URL")
 	if dbURL == "" {
-		dbURL = "postgres://postgres:postgres@localhost:5432/kiseki?sslmode=disable"
+		dbURL = "postgres://postgres:postgres@localhost:54322/postgres?sslmode=disable"
 	}
 
 	// Configure connection pool
@@ -29,11 +29,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to parse database config: %v", err)
 	}
-
-	config.MaxConns = 25
-	config.MinConns = 5
-	config.MaxConnLifetime = 5 * time.Minute
-	config.MaxConnIdleTime = 5 * time.Minute
 
 	// Create connection pool
 	pool, err := pgxpool.NewWithConfig(ctx, config)
