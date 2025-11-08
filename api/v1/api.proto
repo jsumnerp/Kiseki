@@ -20,6 +20,33 @@ message CreateJobApplicationResponse {
   JobApplication job_application = 1;
 }
 
+message ListJobApplicationsRequest {}
+
+message ListJobApplicationsResponse {
+  repeated JobApplication job_applications = 1;
+}
+
+message UpdateJobApplicationRequest {
+  string id = 1;
+  string company = 2;
+  string title = 3;
+  google.protobuf.StringValue description = 4;
+  google.protobuf.StringValue notes = 5;
+  google.protobuf.StringValue cv = 6;
+  google.protobuf.StringValue cover_letter = 7;
+}
+
+message UpdateJobApplicationResponse {
+  JobApplication job_application = 1;
+}
+
+message DeleteJobApplicationRequest {
+  string id = 1;
+}
+
+message DeleteJobApplicationResponse {
+}
+
 message JobApplication {
   string id = 1;
   string company = 2;
@@ -34,5 +61,8 @@ message JobApplication {
 
 service Service {
   rpc CreateJobApplication(CreateJobApplicationRequest) returns (CreateJobApplicationResponse);
+  rpc ListJobApplications(ListJobApplicationsRequest) returns (ListJobApplicationsResponse);
+  rpc UpdateJobApplication(UpdateJobApplicationRequest) returns (UpdateJobApplicationResponse);
+  rpc DeleteJobApplication(DeleteJobApplicationRequest) returns (DeleteJobApplicationResponse);
 }
 

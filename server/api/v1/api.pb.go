@@ -151,6 +151,302 @@ func (x *CreateJobApplicationResponse) GetJobApplication() *JobApplication {
 	return nil
 }
 
+type ListJobApplicationsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListJobApplicationsRequest) Reset() {
+	*x = ListJobApplicationsRequest{}
+	mi := &file_api_v1_api_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListJobApplicationsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListJobApplicationsRequest) ProtoMessage() {}
+
+func (x *ListJobApplicationsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v1_api_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListJobApplicationsRequest.ProtoReflect.Descriptor instead.
+func (*ListJobApplicationsRequest) Descriptor() ([]byte, []int) {
+	return file_api_v1_api_proto_rawDescGZIP(), []int{2}
+}
+
+type ListJobApplicationsResponse struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	JobApplications []*JobApplication      `protobuf:"bytes,1,rep,name=job_applications,json=jobApplications,proto3" json:"job_applications,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *ListJobApplicationsResponse) Reset() {
+	*x = ListJobApplicationsResponse{}
+	mi := &file_api_v1_api_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListJobApplicationsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListJobApplicationsResponse) ProtoMessage() {}
+
+func (x *ListJobApplicationsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v1_api_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListJobApplicationsResponse.ProtoReflect.Descriptor instead.
+func (*ListJobApplicationsResponse) Descriptor() ([]byte, []int) {
+	return file_api_v1_api_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ListJobApplicationsResponse) GetJobApplications() []*JobApplication {
+	if x != nil {
+		return x.JobApplications
+	}
+	return nil
+}
+
+type UpdateJobApplicationRequest struct {
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	Id            string                  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Company       string                  `protobuf:"bytes,2,opt,name=company,proto3" json:"company,omitempty"`
+	Title         string                  `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Description   *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Notes         *wrapperspb.StringValue `protobuf:"bytes,5,opt,name=notes,proto3" json:"notes,omitempty"`
+	Cv            *wrapperspb.StringValue `protobuf:"bytes,6,opt,name=cv,proto3" json:"cv,omitempty"`
+	CoverLetter   *wrapperspb.StringValue `protobuf:"bytes,7,opt,name=cover_letter,json=coverLetter,proto3" json:"cover_letter,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateJobApplicationRequest) Reset() {
+	*x = UpdateJobApplicationRequest{}
+	mi := &file_api_v1_api_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateJobApplicationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateJobApplicationRequest) ProtoMessage() {}
+
+func (x *UpdateJobApplicationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v1_api_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateJobApplicationRequest.ProtoReflect.Descriptor instead.
+func (*UpdateJobApplicationRequest) Descriptor() ([]byte, []int) {
+	return file_api_v1_api_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *UpdateJobApplicationRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *UpdateJobApplicationRequest) GetCompany() string {
+	if x != nil {
+		return x.Company
+	}
+	return ""
+}
+
+func (x *UpdateJobApplicationRequest) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *UpdateJobApplicationRequest) GetDescription() *wrapperspb.StringValue {
+	if x != nil {
+		return x.Description
+	}
+	return nil
+}
+
+func (x *UpdateJobApplicationRequest) GetNotes() *wrapperspb.StringValue {
+	if x != nil {
+		return x.Notes
+	}
+	return nil
+}
+
+func (x *UpdateJobApplicationRequest) GetCv() *wrapperspb.StringValue {
+	if x != nil {
+		return x.Cv
+	}
+	return nil
+}
+
+func (x *UpdateJobApplicationRequest) GetCoverLetter() *wrapperspb.StringValue {
+	if x != nil {
+		return x.CoverLetter
+	}
+	return nil
+}
+
+type UpdateJobApplicationResponse struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	JobApplication *JobApplication        `protobuf:"bytes,1,opt,name=job_application,json=jobApplication,proto3" json:"job_application,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *UpdateJobApplicationResponse) Reset() {
+	*x = UpdateJobApplicationResponse{}
+	mi := &file_api_v1_api_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateJobApplicationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateJobApplicationResponse) ProtoMessage() {}
+
+func (x *UpdateJobApplicationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v1_api_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateJobApplicationResponse.ProtoReflect.Descriptor instead.
+func (*UpdateJobApplicationResponse) Descriptor() ([]byte, []int) {
+	return file_api_v1_api_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *UpdateJobApplicationResponse) GetJobApplication() *JobApplication {
+	if x != nil {
+		return x.JobApplication
+	}
+	return nil
+}
+
+type DeleteJobApplicationRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteJobApplicationRequest) Reset() {
+	*x = DeleteJobApplicationRequest{}
+	mi := &file_api_v1_api_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteJobApplicationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteJobApplicationRequest) ProtoMessage() {}
+
+func (x *DeleteJobApplicationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v1_api_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteJobApplicationRequest.ProtoReflect.Descriptor instead.
+func (*DeleteJobApplicationRequest) Descriptor() ([]byte, []int) {
+	return file_api_v1_api_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *DeleteJobApplicationRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type DeleteJobApplicationResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteJobApplicationResponse) Reset() {
+	*x = DeleteJobApplicationResponse{}
+	mi := &file_api_v1_api_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteJobApplicationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteJobApplicationResponse) ProtoMessage() {}
+
+func (x *DeleteJobApplicationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_v1_api_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteJobApplicationResponse.ProtoReflect.Descriptor instead.
+func (*DeleteJobApplicationResponse) Descriptor() ([]byte, []int) {
+	return file_api_v1_api_proto_rawDescGZIP(), []int{7}
+}
+
 type JobApplication struct {
 	state         protoimpl.MessageState  `protogen:"open.v1"`
 	Id            string                  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -168,7 +464,7 @@ type JobApplication struct {
 
 func (x *JobApplication) Reset() {
 	*x = JobApplication{}
-	mi := &file_api_v1_api_proto_msgTypes[2]
+	mi := &file_api_v1_api_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -180,7 +476,7 @@ func (x *JobApplication) String() string {
 func (*JobApplication) ProtoMessage() {}
 
 func (x *JobApplication) ProtoReflect() protoreflect.Message {
-	mi := &file_api_v1_api_proto_msgTypes[2]
+	mi := &file_api_v1_api_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -193,7 +489,7 @@ func (x *JobApplication) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use JobApplication.ProtoReflect.Descriptor instead.
 func (*JobApplication) Descriptor() ([]byte, []int) {
-	return file_api_v1_api_proto_rawDescGZIP(), []int{2}
+	return file_api_v1_api_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *JobApplication) GetId() string {
@@ -272,7 +568,23 @@ const file_api_v1_api_proto_rawDesc = "" +
 	"\x02cv\x18\x05 \x01(\v2\x1c.google.protobuf.StringValueR\x02cv\x12?\n" +
 	"\fcover_letter\x18\x06 \x01(\v2\x1c.google.protobuf.StringValueR\vcoverLetter\"_\n" +
 	"\x1cCreateJobApplicationResponse\x12?\n" +
-	"\x0fjob_application\x18\x01 \x01(\v2\x16.api.v1.JobApplicationR\x0ejobApplication\"\xa9\x03\n" +
+	"\x0fjob_application\x18\x01 \x01(\v2\x16.api.v1.JobApplicationR\x0ejobApplication\"\x1c\n" +
+	"\x1aListJobApplicationsRequest\"`\n" +
+	"\x1bListJobApplicationsResponse\x12A\n" +
+	"\x10job_applications\x18\x01 \x03(\v2\x16.api.v1.JobApplicationR\x0fjobApplications\"\xc0\x02\n" +
+	"\x1bUpdateJobApplicationRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x18\n" +
+	"\acompany\x18\x02 \x01(\tR\acompany\x12\x14\n" +
+	"\x05title\x18\x03 \x01(\tR\x05title\x12>\n" +
+	"\vdescription\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\vdescription\x122\n" +
+	"\x05notes\x18\x05 \x01(\v2\x1c.google.protobuf.StringValueR\x05notes\x12,\n" +
+	"\x02cv\x18\x06 \x01(\v2\x1c.google.protobuf.StringValueR\x02cv\x12?\n" +
+	"\fcover_letter\x18\a \x01(\v2\x1c.google.protobuf.StringValueR\vcoverLetter\"_\n" +
+	"\x1cUpdateJobApplicationResponse\x12?\n" +
+	"\x0fjob_application\x18\x01 \x01(\v2\x16.api.v1.JobApplicationR\x0ejobApplication\"-\n" +
+	"\x1bDeleteJobApplicationRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"\x1e\n" +
+	"\x1cDeleteJobApplicationResponse\"\xa9\x03\n" +
 	"\x0eJobApplication\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x18\n" +
 	"\acompany\x18\x02 \x01(\tR\acompany\x12\x14\n" +
@@ -284,9 +596,12 @@ const file_api_v1_api_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt2l\n" +
+	"updated_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt2\x92\x03\n" +
 	"\aService\x12a\n" +
-	"\x14CreateJobApplication\x12#.api.v1.CreateJobApplicationRequest\x1a$.api.v1.CreateJobApplicationResponseB\x13Z\x11kiseki/api/v1;apib\x06proto3"
+	"\x14CreateJobApplication\x12#.api.v1.CreateJobApplicationRequest\x1a$.api.v1.CreateJobApplicationResponse\x12^\n" +
+	"\x13ListJobApplications\x12\".api.v1.ListJobApplicationsRequest\x1a#.api.v1.ListJobApplicationsResponse\x12a\n" +
+	"\x14UpdateJobApplication\x12#.api.v1.UpdateJobApplicationRequest\x1a$.api.v1.UpdateJobApplicationResponse\x12a\n" +
+	"\x14DeleteJobApplication\x12#.api.v1.DeleteJobApplicationRequest\x1a$.api.v1.DeleteJobApplicationResponseB\x13Z\x11kiseki/api/v1;apib\x06proto3"
 
 var (
 	file_api_v1_api_proto_rawDescOnce sync.Once
@@ -300,33 +615,51 @@ func file_api_v1_api_proto_rawDescGZIP() []byte {
 	return file_api_v1_api_proto_rawDescData
 }
 
-var file_api_v1_api_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_api_v1_api_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_api_v1_api_proto_goTypes = []any{
 	(*CreateJobApplicationRequest)(nil),  // 0: api.v1.CreateJobApplicationRequest
 	(*CreateJobApplicationResponse)(nil), // 1: api.v1.CreateJobApplicationResponse
-	(*JobApplication)(nil),               // 2: api.v1.JobApplication
-	(*wrapperspb.StringValue)(nil),       // 3: google.protobuf.StringValue
-	(*timestamppb.Timestamp)(nil),        // 4: google.protobuf.Timestamp
+	(*ListJobApplicationsRequest)(nil),   // 2: api.v1.ListJobApplicationsRequest
+	(*ListJobApplicationsResponse)(nil),  // 3: api.v1.ListJobApplicationsResponse
+	(*UpdateJobApplicationRequest)(nil),  // 4: api.v1.UpdateJobApplicationRequest
+	(*UpdateJobApplicationResponse)(nil), // 5: api.v1.UpdateJobApplicationResponse
+	(*DeleteJobApplicationRequest)(nil),  // 6: api.v1.DeleteJobApplicationRequest
+	(*DeleteJobApplicationResponse)(nil), // 7: api.v1.DeleteJobApplicationResponse
+	(*JobApplication)(nil),               // 8: api.v1.JobApplication
+	(*wrapperspb.StringValue)(nil),       // 9: google.protobuf.StringValue
+	(*timestamppb.Timestamp)(nil),        // 10: google.protobuf.Timestamp
 }
 var file_api_v1_api_proto_depIdxs = []int32{
-	3,  // 0: api.v1.CreateJobApplicationRequest.description:type_name -> google.protobuf.StringValue
-	3,  // 1: api.v1.CreateJobApplicationRequest.notes:type_name -> google.protobuf.StringValue
-	3,  // 2: api.v1.CreateJobApplicationRequest.cv:type_name -> google.protobuf.StringValue
-	3,  // 3: api.v1.CreateJobApplicationRequest.cover_letter:type_name -> google.protobuf.StringValue
-	2,  // 4: api.v1.CreateJobApplicationResponse.job_application:type_name -> api.v1.JobApplication
-	3,  // 5: api.v1.JobApplication.description:type_name -> google.protobuf.StringValue
-	3,  // 6: api.v1.JobApplication.notes:type_name -> google.protobuf.StringValue
-	3,  // 7: api.v1.JobApplication.cv:type_name -> google.protobuf.StringValue
-	3,  // 8: api.v1.JobApplication.cover_letter:type_name -> google.protobuf.StringValue
-	4,  // 9: api.v1.JobApplication.created_at:type_name -> google.protobuf.Timestamp
-	4,  // 10: api.v1.JobApplication.updated_at:type_name -> google.protobuf.Timestamp
-	0,  // 11: api.v1.Service.CreateJobApplication:input_type -> api.v1.CreateJobApplicationRequest
-	1,  // 12: api.v1.Service.CreateJobApplication:output_type -> api.v1.CreateJobApplicationResponse
-	12, // [12:13] is the sub-list for method output_type
-	11, // [11:12] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	9,  // 0: api.v1.CreateJobApplicationRequest.description:type_name -> google.protobuf.StringValue
+	9,  // 1: api.v1.CreateJobApplicationRequest.notes:type_name -> google.protobuf.StringValue
+	9,  // 2: api.v1.CreateJobApplicationRequest.cv:type_name -> google.protobuf.StringValue
+	9,  // 3: api.v1.CreateJobApplicationRequest.cover_letter:type_name -> google.protobuf.StringValue
+	8,  // 4: api.v1.CreateJobApplicationResponse.job_application:type_name -> api.v1.JobApplication
+	8,  // 5: api.v1.ListJobApplicationsResponse.job_applications:type_name -> api.v1.JobApplication
+	9,  // 6: api.v1.UpdateJobApplicationRequest.description:type_name -> google.protobuf.StringValue
+	9,  // 7: api.v1.UpdateJobApplicationRequest.notes:type_name -> google.protobuf.StringValue
+	9,  // 8: api.v1.UpdateJobApplicationRequest.cv:type_name -> google.protobuf.StringValue
+	9,  // 9: api.v1.UpdateJobApplicationRequest.cover_letter:type_name -> google.protobuf.StringValue
+	8,  // 10: api.v1.UpdateJobApplicationResponse.job_application:type_name -> api.v1.JobApplication
+	9,  // 11: api.v1.JobApplication.description:type_name -> google.protobuf.StringValue
+	9,  // 12: api.v1.JobApplication.notes:type_name -> google.protobuf.StringValue
+	9,  // 13: api.v1.JobApplication.cv:type_name -> google.protobuf.StringValue
+	9,  // 14: api.v1.JobApplication.cover_letter:type_name -> google.protobuf.StringValue
+	10, // 15: api.v1.JobApplication.created_at:type_name -> google.protobuf.Timestamp
+	10, // 16: api.v1.JobApplication.updated_at:type_name -> google.protobuf.Timestamp
+	0,  // 17: api.v1.Service.CreateJobApplication:input_type -> api.v1.CreateJobApplicationRequest
+	2,  // 18: api.v1.Service.ListJobApplications:input_type -> api.v1.ListJobApplicationsRequest
+	4,  // 19: api.v1.Service.UpdateJobApplication:input_type -> api.v1.UpdateJobApplicationRequest
+	6,  // 20: api.v1.Service.DeleteJobApplication:input_type -> api.v1.DeleteJobApplicationRequest
+	1,  // 21: api.v1.Service.CreateJobApplication:output_type -> api.v1.CreateJobApplicationResponse
+	3,  // 22: api.v1.Service.ListJobApplications:output_type -> api.v1.ListJobApplicationsResponse
+	5,  // 23: api.v1.Service.UpdateJobApplication:output_type -> api.v1.UpdateJobApplicationResponse
+	7,  // 24: api.v1.Service.DeleteJobApplication:output_type -> api.v1.DeleteJobApplicationResponse
+	21, // [21:25] is the sub-list for method output_type
+	17, // [17:21] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_api_v1_api_proto_init() }
@@ -340,7 +673,7 @@ func file_api_v1_api_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_v1_api_proto_rawDesc), len(file_api_v1_api_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

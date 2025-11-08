@@ -8,3 +8,18 @@ import { Service } from "./api_pb";
  * @generated from rpc api.v1.Service.CreateJobApplication
  */
 export const createJobApplication = Service.method.createJobApplication;
+
+/**
+ * @generated from rpc api.v1.Service.ListJobApplications
+ */
+export const listJobApplications = Service.method.listJobApplications;
+
+/**
+ * @generated from rpc api.v1.Service.UpdateJobApplication
+ */
+export const updateJobApplication = Service.method.updateJobApplication;
+
+/**
+ * @generated from rpc api.v1.Service.DeleteJobApplication
+ */
+export const deleteJobApplication = Service.method.deleteJobApplication;

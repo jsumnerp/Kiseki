@@ -36,11 +36,23 @@ const (
 	// ServiceCreateJobApplicationProcedure is the fully-qualified name of the Service's
 	// CreateJobApplication RPC.
 	ServiceCreateJobApplicationProcedure = "/api.v1.Service/CreateJobApplication"
+	// ServiceListJobApplicationsProcedure is the fully-qualified name of the Service's
+	// ListJobApplications RPC.
+	ServiceListJobApplicationsProcedure = "/api.v1.Service/ListJobApplications"
+	// ServiceUpdateJobApplicationProcedure is the fully-qualified name of the Service's
+	// UpdateJobApplication RPC.
+	ServiceUpdateJobApplicationProcedure = "/api.v1.Service/UpdateJobApplication"
+	// ServiceDeleteJobApplicationProcedure is the fully-qualified name of the Service's
+	// DeleteJobApplication RPC.
+	ServiceDeleteJobApplicationProcedure = "/api.v1.Service/DeleteJobApplication"
 )
 
 // ServiceClient is a client for the api.v1.Service service.
 type ServiceClient interface {
 	CreateJobApplication(context.Context, *connect.Request[v1.CreateJobApplicationRequest]) (*connect.Response[v1.CreateJobApplicationResponse], error)
+	ListJobApplications(context.Context, *connect.Request[v1.ListJobApplicationsRequest]) (*connect.Response[v1.ListJobApplicationsResponse], error)
+	UpdateJobApplication(context.Context, *connect.Request[v1.UpdateJobApplicationRequest]) (*connect.Response[v1.UpdateJobApplicationResponse], error)
+	DeleteJobApplication(context.Context, *connect.Request[v1.DeleteJobApplicationRequest]) (*connect.Response[v1.DeleteJobApplicationResponse], error)
 }
 
 // NewServiceClient constructs a client for the api.v1.Service service. By default, it uses the
@@ -60,12 +72,33 @@ func NewServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...con
 			connect.WithSchema(serviceMethods.ByName("CreateJobApplication")),
 			connect.WithClientOptions(opts...),
 		),
+		listJobApplications: connect.NewClient[v1.ListJobApplicationsRequest, v1.ListJobApplicationsResponse](
+			httpClient,
+			baseURL+ServiceListJobApplicationsProcedure,
+			connect.WithSchema(serviceMethods.ByName("ListJobApplications")),
+			connect.WithClientOptions(opts...),
+		),
+		updateJobApplication: connect.NewClient[v1.UpdateJobApplicationRequest, v1.UpdateJobApplicationResponse](
+			httpClient,
+			baseURL+ServiceUpdateJobApplicationProcedure,
+			connect.WithSchema(serviceMethods.ByName("UpdateJobApplication")),
+			connect.WithClientOptions(opts...),
+		),
+		deleteJobApplication: connect.NewClient[v1.DeleteJobApplicationRequest, v1.DeleteJobApplicationResponse](
+			httpClient,
+			baseURL+ServiceDeleteJobApplicationProcedure,
+			connect.WithSchema(serviceMethods.ByName("DeleteJobApplication")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // serviceClient implements ServiceClient.
 type serviceClient struct {
 	createJobApplication *connect.Client[v1.CreateJobApplicationRequest, v1.CreateJobApplicationResponse]
+	listJobApplications  *connect.Client[v1.ListJobApplicationsRequest, v1.ListJobApplicationsResponse]
+	updateJobApplication *connect.Client[v1.UpdateJobApplicationRequest, v1.UpdateJobApplicationResponse]
+	deleteJobApplication *connect.Client[v1.DeleteJobApplicationRequest, v1.DeleteJobApplicationResponse]
 }
 
 // CreateJobApplication calls api.v1.Service.CreateJobApplication.
@@ -73,9 +106,27 @@ func (c *serviceClient) CreateJobApplication(ctx context.Context, req *connect.R
 	return c.createJobApplication.CallUnary(ctx, req)
 }
 
+// ListJobApplications calls api.v1.Service.ListJobApplications.
+func (c *serviceClient) ListJobApplications(ctx context.Context, req *connect.Request[v1.ListJobApplicationsRequest]) (*connect.Response[v1.ListJobApplicationsResponse], error) {
+	return c.listJobApplications.CallUnary(ctx, req)
+}
+
+// UpdateJobApplication calls api.v1.Service.UpdateJobApplication.
+func (c *serviceClient) UpdateJobApplication(ctx context.Context, req *connect.Request[v1.UpdateJobApplicationRequest]) (*connect.Response[v1.UpdateJobApplicationResponse], error) {
+	return c.updateJobApplication.CallUnary(ctx, req)
+}
+
+// DeleteJobApplication calls api.v1.Service.DeleteJobApplication.
+func (c *serviceClient) DeleteJobApplication(ctx context.Context, req *connect.Request[v1.DeleteJobApplicationRequest]) (*connect.Response[v1.DeleteJobApplicationResponse], error) {
+	return c.deleteJobApplication.CallUnary(ctx, req)
+}
+
 // ServiceHandler is an implementation of the api.v1.Service service.
 type ServiceHandler interface {
 	CreateJobApplication(context.Context, *connect.Request[v1.CreateJobApplicationRequest]) (*connect.Response[v1.CreateJobApplicationResponse], error)
+	ListJobApplications(context.Context, *connect.Request[v1.ListJobApplicationsRequest]) (*connect.Response[v1.ListJobApplicationsResponse], error)
+	UpdateJobApplication(context.Context, *connect.Request[v1.UpdateJobApplicationRequest]) (*connect.Response[v1.UpdateJobApplicationResponse], error)
+	DeleteJobApplication(context.Context, *connect.Request[v1.DeleteJobApplicationRequest]) (*connect.Response[v1.DeleteJobApplicationResponse], error)
 }
 
 // NewServiceHandler builds an HTTP handler from the service implementation. It returns the path on
@@ -91,10 +142,34 @@ func NewServiceHandler(svc ServiceHandler, opts ...connect.HandlerOption) (strin
 		connect.WithSchema(serviceMethods.ByName("CreateJobApplication")),
 		connect.WithHandlerOptions(opts...),
 	)
+	serviceListJobApplicationsHandler := connect.NewUnaryHandler(
+		ServiceListJobApplicationsProcedure,
+		svc.ListJobApplications,
+		connect.WithSchema(serviceMethods.ByName("ListJobApplications")),
+		connect.WithHandlerOptions(opts...),
+	)
+	serviceUpdateJobApplicationHandler := connect.NewUnaryHandler(
+		ServiceUpdateJobApplicationProcedure,
+		svc.UpdateJobApplication,
+		connect.WithSchema(serviceMethods.ByName("UpdateJobApplication")),
+		connect.WithHandlerOptions(opts...),
+	)
+	serviceDeleteJobApplicationHandler := connect.NewUnaryHandler(
+		ServiceDeleteJobApplicationProcedure,
+		svc.DeleteJobApplication,
+		connect.WithSchema(serviceMethods.ByName("DeleteJobApplication")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/api.v1.Service/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ServiceCreateJobApplicationProcedure:
 			serviceCreateJobApplicationHandler.ServeHTTP(w, r)
+		case ServiceListJobApplicationsProcedure:
+			serviceListJobApplicationsHandler.ServeHTTP(w, r)
+		case ServiceUpdateJobApplicationProcedure:
+			serviceUpdateJobApplicationHandler.ServeHTTP(w, r)
+		case ServiceDeleteJobApplicationProcedure:
+			serviceDeleteJobApplicationHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -106,4 +181,16 @@ type UnimplementedServiceHandler struct{}
 
 func (UnimplementedServiceHandler) CreateJobApplication(context.Context, *connect.Request[v1.CreateJobApplicationRequest]) (*connect.Response[v1.CreateJobApplicationResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.v1.Service.CreateJobApplication is not implemented"))
+}
+
+func (UnimplementedServiceHandler) ListJobApplications(context.Context, *connect.Request[v1.ListJobApplicationsRequest]) (*connect.Response[v1.ListJobApplicationsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.v1.Service.ListJobApplications is not implemented"))
+}
+
+func (UnimplementedServiceHandler) UpdateJobApplication(context.Context, *connect.Request[v1.UpdateJobApplicationRequest]) (*connect.Response[v1.UpdateJobApplicationResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.v1.Service.UpdateJobApplication is not implemented"))
+}
+
+func (UnimplementedServiceHandler) DeleteJobApplication(context.Context, *connect.Request[v1.DeleteJobApplicationRequest]) (*connect.Response[v1.DeleteJobApplicationResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("api.v1.Service.DeleteJobApplication is not implemented"))
 }

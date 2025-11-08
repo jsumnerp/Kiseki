@@ -12,7 +12,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file api/v1/api.proto.
  */
 export const file_api_v1_api: GenFile = /*@__PURE__*/
-  fileDesc("ChBhcGkvdjEvYXBpLnByb3RvEgZhcGkudjEi+wEKG0NyZWF0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBIPCgdjb21wYW55GAEgASgJEg0KBXRpdGxlGAIgASgJEjEKC2Rlc2NyaXB0aW9uGAMgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEisKBW5vdGVzGAQgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEigKAmN2GAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjIKDGNvdmVyX2xldHRlchgGIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZSJPChxDcmVhdGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlEi8KD2pvYl9hcHBsaWNhdGlvbhgBIAEoCzIWLmFwaS52MS5Kb2JBcHBsaWNhdGlvbiLaAgoOSm9iQXBwbGljYXRpb24SCgoCaWQYASABKAkSDwoHY29tcGFueRgCIAEoCRINCgV0aXRsZRgDIAEoCRIxCgtkZXNjcmlwdGlvbhgEIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRIrCgVub3RlcxgFIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRIoCgJjdhgGIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRIyCgxjb3Zlcl9sZXR0ZXIYByABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSLgoKY3JlYXRlZF9hdBgIIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASLgoKdXBkYXRlZF9hdBgJIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAybAoHU2VydmljZRJhChRDcmVhdGVKb2JBcHBsaWNhdGlvbhIjLmFwaS52MS5DcmVhdGVKb2JBcHBsaWNhdGlvblJlcXVlc3QaJC5hcGkudjEuQ3JlYXRlSm9iQXBwbGljYXRpb25SZXNwb25zZUITWhFraXNla2kvYXBpL3YxO2FwaWIGcHJvdG8z", [file_google_protobuf_timestamp, file_google_protobuf_wrappers]);
+  fileDesc("ChBhcGkvdjEvYXBpLnByb3RvEgZhcGkudjEi+wEKG0NyZWF0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBIPCgdjb21wYW55GAEgASgJEg0KBXRpdGxlGAIgASgJEjEKC2Rlc2NyaXB0aW9uGAMgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEisKBW5vdGVzGAQgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEigKAmN2GAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjIKDGNvdmVyX2xldHRlchgGIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZSJPChxDcmVhdGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlEi8KD2pvYl9hcHBsaWNhdGlvbhgBIAEoCzIWLmFwaS52MS5Kb2JBcHBsaWNhdGlvbiIcChpMaXN0Sm9iQXBwbGljYXRpb25zUmVxdWVzdCJPChtMaXN0Sm9iQXBwbGljYXRpb25zUmVzcG9uc2USMAoQam9iX2FwcGxpY2F0aW9ucxgBIAMoCzIWLmFwaS52MS5Kb2JBcHBsaWNhdGlvbiKHAgobVXBkYXRlSm9iQXBwbGljYXRpb25SZXF1ZXN0EgoKAmlkGAEgASgJEg8KB2NvbXBhbnkYAiABKAkSDQoFdGl0bGUYAyABKAkSMQoLZGVzY3JpcHRpb24YBCABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSKwoFbm90ZXMYBSABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSKAoCY3YYBiABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSMgoMY292ZXJfbGV0dGVyGAcgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlIk8KHFVwZGF0ZUpvYkFwcGxpY2F0aW9uUmVzcG9uc2USLwoPam9iX2FwcGxpY2F0aW9uGAEgASgLMhYuYXBpLnYxLkpvYkFwcGxpY2F0aW9uIikKG0RlbGV0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBIKCgJpZBgBIAEoCSIeChxEZWxldGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlItoCCg5Kb2JBcHBsaWNhdGlvbhIKCgJpZBgBIAEoCRIPCgdjb21wYW55GAIgASgJEg0KBXRpdGxlGAMgASgJEjEKC2Rlc2NyaXB0aW9uGAQgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEisKBW5vdGVzGAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEigKAmN2GAYgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjIKDGNvdmVyX2xldHRlchgHIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRIuCgpjcmVhdGVkX2F0GAggASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgp1cGRhdGVkX2F0GAkgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcDKSAwoHU2VydmljZRJhChRDcmVhdGVKb2JBcHBsaWNhdGlvbhIjLmFwaS52MS5DcmVhdGVKb2JBcHBsaWNhdGlvblJlcXVlc3QaJC5hcGkudjEuQ3JlYXRlSm9iQXBwbGljYXRpb25SZXNwb25zZRJeChNMaXN0Sm9iQXBwbGljYXRpb25zEiIuYXBpLnYxLkxpc3RKb2JBcHBsaWNhdGlvbnNSZXF1ZXN0GiMuYXBpLnYxLkxpc3RKb2JBcHBsaWNhdGlvbnNSZXNwb25zZRJhChRVcGRhdGVKb2JBcHBsaWNhdGlvbhIjLmFwaS52MS5VcGRhdGVKb2JBcHBsaWNhdGlvblJlcXVlc3QaJC5hcGkudjEuVXBkYXRlSm9iQXBwbGljYXRpb25SZXNwb25zZRJhChREZWxldGVKb2JBcHBsaWNhdGlvbhIjLmFwaS52MS5EZWxldGVKb2JBcHBsaWNhdGlvblJlcXVlc3QaJC5hcGkudjEuRGVsZXRlSm9iQXBwbGljYXRpb25SZXNwb25zZUITWhFraXNla2kvYXBpL3YxO2FwaWIGcHJvdG8z", [file_google_protobuf_timestamp, file_google_protobuf_wrappers]);
 
 /**
  * @generated from message api.v1.CreateJobApplicationRequest
@@ -74,6 +74,130 @@ export const CreateJobApplicationResponseSchema: GenMessage<CreateJobApplication
   messageDesc(file_api_v1_api, 1);
 
 /**
+ * @generated from message api.v1.ListJobApplicationsRequest
+ */
+export type ListJobApplicationsRequest = Message<"api.v1.ListJobApplicationsRequest"> & {
+};
+
+/**
+ * Describes the message api.v1.ListJobApplicationsRequest.
+ * Use `create(ListJobApplicationsRequestSchema)` to create a new message.
+ */
+export const ListJobApplicationsRequestSchema: GenMessage<ListJobApplicationsRequest> = /*@__PURE__*/
+  messageDesc(file_api_v1_api, 2);
+
+/**
+ * @generated from message api.v1.ListJobApplicationsResponse
+ */
+export type ListJobApplicationsResponse = Message<"api.v1.ListJobApplicationsResponse"> & {
+  /**
+   * @generated from field: repeated api.v1.JobApplication job_applications = 1;
+   */
+  jobApplications: JobApplication[];
+};
+
+/**
+ * Describes the message api.v1.ListJobApplicationsResponse.
+ * Use `create(ListJobApplicationsResponseSchema)` to create a new message.
+ */
+export const ListJobApplicationsResponseSchema: GenMessage<ListJobApplicationsResponse> = /*@__PURE__*/
+  messageDesc(file_api_v1_api, 3);
+
+/**
+ * @generated from message api.v1.UpdateJobApplicationRequest
+ */
+export type UpdateJobApplicationRequest = Message<"api.v1.UpdateJobApplicationRequest"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * @generated from field: string company = 2;
+   */
+  company: string;
+
+  /**
+   * @generated from field: string title = 3;
+   */
+  title: string;
+
+  /**
+   * @generated from field: google.protobuf.StringValue description = 4;
+   */
+  description?: string;
+
+  /**
+   * @generated from field: google.protobuf.StringValue notes = 5;
+   */
+  notes?: string;
+
+  /**
+   * @generated from field: google.protobuf.StringValue cv = 6;
+   */
+  cv?: string;
+
+  /**
+   * @generated from field: google.protobuf.StringValue cover_letter = 7;
+   */
+  coverLetter?: string;
+};
+
+/**
+ * Describes the message api.v1.UpdateJobApplicationRequest.
+ * Use `create(UpdateJobApplicationRequestSchema)` to create a new message.
+ */
+export const UpdateJobApplicationRequestSchema: GenMessage<UpdateJobApplicationRequest> = /*@__PURE__*/
+  messageDesc(file_api_v1_api, 4);
+
+/**
+ * @generated from message api.v1.UpdateJobApplicationResponse
+ */
+export type UpdateJobApplicationResponse = Message<"api.v1.UpdateJobApplicationResponse"> & {
+  /**
+   * @generated from field: api.v1.JobApplication job_application = 1;
+   */
+  jobApplication?: JobApplication;
+};
+
+/**
+ * Describes the message api.v1.UpdateJobApplicationResponse.
+ * Use `create(UpdateJobApplicationResponseSchema)` to create a new message.
+ */
+export const UpdateJobApplicationResponseSchema: GenMessage<UpdateJobApplicationResponse> = /*@__PURE__*/
+  messageDesc(file_api_v1_api, 5);
+
+/**
+ * @generated from message api.v1.DeleteJobApplicationRequest
+ */
+export type DeleteJobApplicationRequest = Message<"api.v1.DeleteJobApplicationRequest"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+};
+
+/**
+ * Describes the message api.v1.DeleteJobApplicationRequest.
+ * Use `create(DeleteJobApplicationRequestSchema)` to create a new message.
+ */
+export const DeleteJobApplicationRequestSchema: GenMessage<DeleteJobApplicationRequest> = /*@__PURE__*/
+  messageDesc(file_api_v1_api, 6);
+
+/**
+ * @generated from message api.v1.DeleteJobApplicationResponse
+ */
+export type DeleteJobApplicationResponse = Message<"api.v1.DeleteJobApplicationResponse"> & {
+};
+
+/**
+ * Describes the message api.v1.DeleteJobApplicationResponse.
+ * Use `create(DeleteJobApplicationResponseSchema)` to create a new message.
+ */
+export const DeleteJobApplicationResponseSchema: GenMessage<DeleteJobApplicationResponse> = /*@__PURE__*/
+  messageDesc(file_api_v1_api, 7);
+
+/**
  * @generated from message api.v1.JobApplication
  */
 export type JobApplication = Message<"api.v1.JobApplication"> & {
@@ -128,7 +252,7 @@ export type JobApplication = Message<"api.v1.JobApplication"> & {
  * Use `create(JobApplicationSchema)` to create a new message.
  */
 export const JobApplicationSchema: GenMessage<JobApplication> = /*@__PURE__*/
-  messageDesc(file_api_v1_api, 2);
+  messageDesc(file_api_v1_api, 8);
 
 /**
  * @generated from service api.v1.Service
@@ -141,6 +265,30 @@ export const Service: GenService<{
     methodKind: "unary";
     input: typeof CreateJobApplicationRequestSchema;
     output: typeof CreateJobApplicationResponseSchema;
+  },
+  /**
+   * @generated from rpc api.v1.Service.ListJobApplications
+   */
+  listJobApplications: {
+    methodKind: "unary";
+    input: typeof ListJobApplicationsRequestSchema;
+    output: typeof ListJobApplicationsResponseSchema;
+  },
+  /**
+   * @generated from rpc api.v1.Service.UpdateJobApplication
+   */
+  updateJobApplication: {
+    methodKind: "unary";
+    input: typeof UpdateJobApplicationRequestSchema;
+    output: typeof UpdateJobApplicationResponseSchema;
+  },
+  /**
+   * @generated from rpc api.v1.Service.DeleteJobApplication
+   */
+  deleteJobApplication: {
+    methodKind: "unary";
+    input: typeof DeleteJobApplicationRequestSchema;
+    output: typeof DeleteJobApplicationResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_api_v1_api, 0);
