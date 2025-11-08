@@ -23,6 +23,7 @@ require (
 
 require (
 	github.com/Masterminds/squirrel v1.5.4
+	github.com/golang-jwt/jwt/v4 v4.5.2
 	github.com/jackc/pgx/v5 v5.7.6
 	github.com/samber/lo v1.52.0
 	golang.org/x/sys v0.34.0 // indirect

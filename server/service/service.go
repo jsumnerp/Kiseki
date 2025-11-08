@@ -33,7 +33,10 @@ func NewService(jobApplicationRepository kiseki.JobApplicationRepository) Servic
 
 // CreateJobApplication implements Service.
 func (s *service) CreateJobApplication(ctx context.Context, req *api.CreateJobApplicationRequest) (*api.CreateJobApplicationResponse, error) {
-	userID := "test"
+	userID, err := getUserID(ctx)
+	if err != nil {
+		return nil, err
+	}
 
 	jobApplication := kiseki.NewJobApplication(kiseki.NewJobApplicationParams{
 		UserID:      userID,
@@ -75,6 +78,15 @@ func (s *service) DeleteJobApplication(ctx context.Context, req *api.DeleteJobAp
 		return nil, status.Errorf(codes.NotFound, "job application not found")
 	}
 
+	userID, err := getUserID(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	if ja.UserID != userID {
+		return nil, status.Errorf(codes.PermissionDenied, "you are not allowed to delete this job application")
+	}
+
 	ja.Delete()
 
 	if err := s.jobApplicationRepository.Save(ctx, ja); err != nil {
@@ -85,7 +97,10 @@ func (s *service) DeleteJobApplication(ctx context.Context, req *api.DeleteJobAp
 
 // ListJobApplications implements Service.
 func (s *service) ListJobApplications(ctx context.Context, req *api.ListJobApplicationsRequest) (*api.ListJobApplicationsResponse, error) {
-	userID := "test"
+	userID, err := getUserID(ctx)
+	if err != nil {
+		return nil, err
+	}
 
 	jas, err := s.jobApplicationRepository.List(ctx, userID)
 	if err != nil {
@@ -118,6 +133,15 @@ func (s *service) UpdateJobApplication(ctx context.Context, req *api.UpdateJobAp
 
 	if ja == nil {
 		return nil, status.Errorf(codes.NotFound, "job application not found")
+	}
+
+	userID, err := getUserID(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	if ja.UserID != userID {
+		return nil, status.Errorf(codes.PermissionDenied, "you are not allowed to update this job application")
 	}
 
 	ja.Update(kiseki.UpdateJobApplicationParams{
