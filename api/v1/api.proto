@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+package api.v1;
+
+option go_package = "kiseki/api/v1;api";
+
+message CreateJobApplicationRequest {
+  string company = 1;
+  string title = 2;
+  google.protobuf.StringValue description = 3;
+  google.protobuf.StringValue notes = 4;
+  google.protobuf.StringValue cv = 5;
+  google.protobuf.StringValue cover_letter = 6;
+}
+
+message CreateJobApplicationResponse {
+  JobApplication job_application = 1;
+}
+
+message JobApplication {
+  string id = 1;
+  string company = 2;
+  string title = 3;
+  google.protobuf.StringValue description = 4;
+  google.protobuf.StringValue notes = 5;
+  google.protobuf.StringValue cv = 6;
+  google.protobuf.StringValue cover_letter = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
+}
+
+service Service {
+  rpc CreateJobApplication(CreateJobApplicationRequest) returns (CreateJobApplicationResponse);
+}
+
