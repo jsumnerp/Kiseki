@@ -1,7 +1,7 @@
 import { JobApplicationStatus, type JobApplication } from "@/api/v1/api_pb";
-import { timestampDate, timestampFromDate } from "@bufbuild/protobuf/wkt";
+import { timestampFromDate } from "@bufbuild/protobuf/wkt";
 import { faker } from "@faker-js/faker";
-import { Card, CardTitle, CardContent } from "@/components/ui/card";
+import { KanbanCard } from "@/components/kanban-card";
 
 const ColumnNames: Partial<{ [key in JobApplicationStatus]: string }> = {
   [JobApplicationStatus.APPLIED]: "Applied",
@@ -11,6 +11,16 @@ const ColumnNames: Partial<{ [key in JobApplicationStatus]: string }> = {
   [JobApplicationStatus.ACCEPTED]: "Accepted",
   [JobApplicationStatus.WITHDRAWN]: "Withdrawn",
   [JobApplicationStatus.SCREENING]: "Screening",
+};
+
+const ColumnColors: Partial<{ [key in JobApplicationStatus]: string }> = {
+  [JobApplicationStatus.APPLIED]: "bg-gray-900 dark:bg-gray-100",
+  [JobApplicationStatus.INTERVIEW]: "bg-indigo-900 dark:bg-indigo-100",
+  [JobApplicationStatus.OFFER]: "bg-purple-900 dark:bg-purple-100",
+  [JobApplicationStatus.REJECTED]: "bg-red-900 dark:bg-red-100",
+  [JobApplicationStatus.ACCEPTED]: "bg-green-900 dark:bg-green-100",
+  [JobApplicationStatus.WITHDRAWN]: "bg-red-900 dark:bg-red-100",
+  [JobApplicationStatus.SCREENING]: "bg-blue-900 dark:bg-blue-100",
 };
 
 const STATUSES = Object.values(JobApplicationStatus).filter(
@@ -32,25 +42,31 @@ export const Kanban = () => {
     const applications = jobApplications.filter((app) => app.status === status);
 
     return (
-      <div key={status} className="bg-accent outline py-4 px-2">
-        <h2 className="text-sm font-semibold text-left">
+      <div
+        key={status}
+        className="bg-accent py-4 px-2 flex flex-col gap-2 rounded-xl"
+      >
+        <h2 className="text-md font-semibold text-left">
           {ColumnNames[status]}
         </h2>
         {applications.map((job) => (
-          <Card key={job.id}>
-            <CardTitle>{job.company}</CardTitle>
-            <CardContent>
-              <p>{job.title}</p>
-              <p>{timestampDate(job.createdAt!).toLocaleDateString()}</p>
-            </CardContent>
-          </Card>
+          <KanbanCard
+            key={job.id}
+            title={job.title}
+            company={job.company}
+            createdAt={job.createdAt!}
+            color={ColumnColors[status]!}
+          />
         ))}
       </div>
     );
   }
 
   return (
-    <div className="grid size-full grid-cols-7 gap-2" aria-label="Kanban board">
+    <div
+      className="grid size-full grid-cols-7 gap-2 px-6"
+      aria-label="Kanban board"
+    >
       {STATUSES.map((status) => renderColumn(status))}
     </div>
   );
