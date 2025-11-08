@@ -9,19 +9,20 @@ import (
 	"kiseki/service"
 
 	"connectrpc.com/connect"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 type handler struct {
 	service service.Service
 }
 
-func NewServer(service service.Service) *http.Server {
+func NewServer(svc service.Service, jwtSecret []byte) *http.Server {
 	h := &handler{
-		service: service,
+		service: svc,
 	}
 
 	mux := http.NewServeMux()
-	path, handler := apiconnect.NewServiceHandler(h)
+	path, handler := apiconnect.NewServiceHandler(h, connect.WithInterceptors(JWTMiddleware(jwtSecret, jwt.SigningMethodHS256, func() jwt.Claims { return &service.SupabaseClaims{} })))
 
 	mux.Handle(path, handler)
 

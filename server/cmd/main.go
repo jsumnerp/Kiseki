@@ -24,6 +24,12 @@ func main() {
 		dbURL = "postgres://postgres:postgres@localhost:54322/postgres?sslmode=disable"
 	}
 
+	// Get JWT secret from environment
+	jwtSecret := os.Getenv("JWT_SECRET")
+	if jwtSecret == "" {
+		jwtSecret = "super-secret-jwt-token-with-at-least-32-characters-long"
+	}
+
 	// Configure connection pool
 	config, err := pgxpool.ParseConfig(dbURL)
 	if err != nil {
@@ -51,7 +57,7 @@ func main() {
 	svc := service.NewService(jobApplicationRepo)
 
 	// Create HTTP server
-	server := connect.NewServer(svc)
+	server := connect.NewServer(svc, []byte(jwtSecret))
 
 	// Start server in a goroutine
 	go func() {
