@@ -2,8 +2,8 @@
 // @generated from file api/v1/api.proto (package api.v1, syntax proto3)
 /* eslint-disable */
 
-import type { GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
-import { fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
+import type { GenEnum, GenFile, GenMessage, GenService } from "@bufbuild/protobuf/codegenv2";
+import { enumDesc, fileDesc, messageDesc, serviceDesc } from "@bufbuild/protobuf/codegenv2";
 import type { Timestamp } from "@bufbuild/protobuf/wkt";
 import { file_google_protobuf_timestamp, file_google_protobuf_wrappers } from "@bufbuild/protobuf/wkt";
 import type { Message } from "@bufbuild/protobuf";
@@ -12,7 +12,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file api/v1/api.proto.
  */
 export const file_api_v1_api: GenFile = /*@__PURE__*/
-  fileDesc("ChBhcGkvdjEvYXBpLnByb3RvEgZhcGkudjEi+wEKG0NyZWF0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBIPCgdjb21wYW55GAEgASgJEg0KBXRpdGxlGAIgASgJEjEKC2Rlc2NyaXB0aW9uGAMgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEisKBW5vdGVzGAQgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEigKAmN2GAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjIKDGNvdmVyX2xldHRlchgGIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZSJPChxDcmVhdGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlEi8KD2pvYl9hcHBsaWNhdGlvbhgBIAEoCzIWLmFwaS52MS5Kb2JBcHBsaWNhdGlvbiIcChpMaXN0Sm9iQXBwbGljYXRpb25zUmVxdWVzdCJPChtMaXN0Sm9iQXBwbGljYXRpb25zUmVzcG9uc2USMAoQam9iX2FwcGxpY2F0aW9ucxgBIAMoCzIWLmFwaS52MS5Kb2JBcHBsaWNhdGlvbiKHAgobVXBkYXRlSm9iQXBwbGljYXRpb25SZXF1ZXN0EgoKAmlkGAEgASgJEg8KB2NvbXBhbnkYAiABKAkSDQoFdGl0bGUYAyABKAkSMQoLZGVzY3JpcHRpb24YBCABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSKwoFbm90ZXMYBSABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSKAoCY3YYBiABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSMgoMY292ZXJfbGV0dGVyGAcgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlIk8KHFVwZGF0ZUpvYkFwcGxpY2F0aW9uUmVzcG9uc2USLwoPam9iX2FwcGxpY2F0aW9uGAEgASgLMhYuYXBpLnYxLkpvYkFwcGxpY2F0aW9uIikKG0RlbGV0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBIKCgJpZBgBIAEoCSIeChxEZWxldGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlItoCCg5Kb2JBcHBsaWNhdGlvbhIKCgJpZBgBIAEoCRIPCgdjb21wYW55GAIgASgJEg0KBXRpdGxlGAMgASgJEjEKC2Rlc2NyaXB0aW9uGAQgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEisKBW5vdGVzGAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEigKAmN2GAYgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjIKDGNvdmVyX2xldHRlchgHIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRIuCgpjcmVhdGVkX2F0GAggASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgp1cGRhdGVkX2F0GAkgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcDKSAwoHU2VydmljZRJhChRDcmVhdGVKb2JBcHBsaWNhdGlvbhIjLmFwaS52MS5DcmVhdGVKb2JBcHBsaWNhdGlvblJlcXVlc3QaJC5hcGkudjEuQ3JlYXRlSm9iQXBwbGljYXRpb25SZXNwb25zZRJeChNMaXN0Sm9iQXBwbGljYXRpb25zEiIuYXBpLnYxLkxpc3RKb2JBcHBsaWNhdGlvbnNSZXF1ZXN0GiMuYXBpLnYxLkxpc3RKb2JBcHBsaWNhdGlvbnNSZXNwb25zZRJhChRVcGRhdGVKb2JBcHBsaWNhdGlvbhIjLmFwaS52MS5VcGRhdGVKb2JBcHBsaWNhdGlvblJlcXVlc3QaJC5hcGkudjEuVXBkYXRlSm9iQXBwbGljYXRpb25SZXNwb25zZRJhChREZWxldGVKb2JBcHBsaWNhdGlvbhIjLmFwaS52MS5EZWxldGVKb2JBcHBsaWNhdGlvblJlcXVlc3QaJC5hcGkudjEuRGVsZXRlSm9iQXBwbGljYXRpb25SZXNwb25zZUITWhFraXNla2kvYXBpL3YxO2FwaWIGcHJvdG8z", [file_google_protobuf_timestamp, file_google_protobuf_wrappers]);
+  fileDesc("ChBhcGkvdjEvYXBpLnByb3RvEgZhcGkudjEi+wEKG0NyZWF0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBIPCgdjb21wYW55GAEgASgJEg0KBXRpdGxlGAIgASgJEjEKC2Rlc2NyaXB0aW9uGAMgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEisKBW5vdGVzGAQgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEigKAmN2GAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjIKDGNvdmVyX2xldHRlchgGIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZSJPChxDcmVhdGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlEi8KD2pvYl9hcHBsaWNhdGlvbhgBIAEoCzIWLmFwaS52MS5Kb2JBcHBsaWNhdGlvbiIcChpMaXN0Sm9iQXBwbGljYXRpb25zUmVxdWVzdCJPChtMaXN0Sm9iQXBwbGljYXRpb25zUmVzcG9uc2USMAoQam9iX2FwcGxpY2F0aW9ucxgBIAMoCzIWLmFwaS52MS5Kb2JBcHBsaWNhdGlvbiK1AgobVXBkYXRlSm9iQXBwbGljYXRpb25SZXF1ZXN0EgoKAmlkGAEgASgJEg8KB2NvbXBhbnkYAiABKAkSDQoFdGl0bGUYAyABKAkSMQoLZGVzY3JpcHRpb24YBCABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSKwoFbm90ZXMYBSABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSKAoCY3YYBiABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSMgoMY292ZXJfbGV0dGVyGAcgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEiwKBnN0YXR1cxgIIAEoDjIcLmFwaS52MS5Kb2JBcHBsaWNhdGlvblN0YXR1cyJPChxVcGRhdGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlEi8KD2pvYl9hcHBsaWNhdGlvbhgBIAEoCzIWLmFwaS52MS5Kb2JBcHBsaWNhdGlvbiIpChtEZWxldGVKb2JBcHBsaWNhdGlvblJlcXVlc3QSCgoCaWQYASABKAkiHgocRGVsZXRlSm9iQXBwbGljYXRpb25SZXNwb25zZSK4AwoOSm9iQXBwbGljYXRpb24SCgoCaWQYASABKAkSDwoHY29tcGFueRgCIAEoCRINCgV0aXRsZRgDIAEoCRIsCgZzdGF0dXMYBCABKA4yHC5hcGkudjEuSm9iQXBwbGljYXRpb25TdGF0dXMSMQoLZGVzY3JpcHRpb24YBSABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSKwoFbm90ZXMYBiABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSKAoCY3YYByABKAsyHC5nb29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUSMgoMY292ZXJfbGV0dGVyGAggASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEi4KCmFwcGxpZWRfYXQYCSABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCmNyZWF0ZWRfYXQYCiABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wEi4KCnVwZGF0ZWRfYXQYCyABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1wKsACChRKb2JBcHBsaWNhdGlvblN0YXR1cxImCiJKT0JfQVBQTElDQVRJT05fU1RBVFVTX1VOU1BFQ0lGSUVEEAASIgoeSk9CX0FQUExJQ0FUSU9OX1NUQVRVU19BUFBMSUVEEAESJAogSk9CX0FQUExJQ0FUSU9OX1NUQVRVU19TQ1JFRU5JTkcQAxIkCiBKT0JfQVBQTElDQVRJT05fU1RBVFVTX0lOVEVSVklFVxAEEiAKHEpPQl9BUFBMSUNBVElPTl9TVEFUVVNfT0ZGRVIQBRIjCh9KT0JfQVBQTElDQVRJT05fU1RBVFVTX1JFSkVDVEVEEAYSJAogSk9CX0FQUExJQ0FUSU9OX1NUQVRVU19XSVRIRFJBV04QBxIjCh9KT0JfQVBQTElDQVRJT05fU1RBVFVTX0FDQ0VQVEVEEAgykgMKB1NlcnZpY2USYQoUQ3JlYXRlSm9iQXBwbGljYXRpb24SIy5hcGkudjEuQ3JlYXRlSm9iQXBwbGljYXRpb25SZXF1ZXN0GiQuYXBpLnYxLkNyZWF0ZUpvYkFwcGxpY2F0aW9uUmVzcG9uc2USXgoTTGlzdEpvYkFwcGxpY2F0aW9ucxIiLmFwaS52MS5MaXN0Sm9iQXBwbGljYXRpb25zUmVxdWVzdBojLmFwaS52MS5MaXN0Sm9iQXBwbGljYXRpb25zUmVzcG9uc2USYQoUVXBkYXRlSm9iQXBwbGljYXRpb24SIy5hcGkudjEuVXBkYXRlSm9iQXBwbGljYXRpb25SZXF1ZXN0GiQuYXBpLnYxLlVwZGF0ZUpvYkFwcGxpY2F0aW9uUmVzcG9uc2USYQoURGVsZXRlSm9iQXBwbGljYXRpb24SIy5hcGkudjEuRGVsZXRlSm9iQXBwbGljYXRpb25SZXF1ZXN0GiQuYXBpLnYxLkRlbGV0ZUpvYkFwcGxpY2F0aW9uUmVzcG9uc2VCE1oRa2lzZWtpL2FwaS92MTthcGliBnByb3RvMw", [file_google_protobuf_timestamp, file_google_protobuf_wrappers]);
 
 /**
  * @generated from message api.v1.CreateJobApplicationRequest
@@ -141,6 +141,11 @@ export type UpdateJobApplicationRequest = Message<"api.v1.UpdateJobApplicationRe
    * @generated from field: google.protobuf.StringValue cover_letter = 7;
    */
   coverLetter?: string;
+
+  /**
+   * @generated from field: api.v1.JobApplicationStatus status = 8;
+   */
+  status: JobApplicationStatus;
 };
 
 /**
@@ -217,32 +222,42 @@ export type JobApplication = Message<"api.v1.JobApplication"> & {
   title: string;
 
   /**
-   * @generated from field: google.protobuf.StringValue description = 4;
+   * @generated from field: api.v1.JobApplicationStatus status = 4;
+   */
+  status: JobApplicationStatus;
+
+  /**
+   * @generated from field: google.protobuf.StringValue description = 5;
    */
   description?: string;
 
   /**
-   * @generated from field: google.protobuf.StringValue notes = 5;
+   * @generated from field: google.protobuf.StringValue notes = 6;
    */
   notes?: string;
 
   /**
-   * @generated from field: google.protobuf.StringValue cv = 6;
+   * @generated from field: google.protobuf.StringValue cv = 7;
    */
   cv?: string;
 
   /**
-   * @generated from field: google.protobuf.StringValue cover_letter = 7;
+   * @generated from field: google.protobuf.StringValue cover_letter = 8;
    */
   coverLetter?: string;
 
   /**
-   * @generated from field: google.protobuf.Timestamp created_at = 8;
+   * @generated from field: google.protobuf.Timestamp applied_at = 9;
+   */
+  appliedAt?: Timestamp;
+
+  /**
+   * @generated from field: google.protobuf.Timestamp created_at = 10;
    */
   createdAt?: Timestamp;
 
   /**
-   * @generated from field: google.protobuf.Timestamp updated_at = 9;
+   * @generated from field: google.protobuf.Timestamp updated_at = 11;
    */
   updatedAt?: Timestamp;
 };
@@ -253,6 +268,57 @@ export type JobApplication = Message<"api.v1.JobApplication"> & {
  */
 export const JobApplicationSchema: GenMessage<JobApplication> = /*@__PURE__*/
   messageDesc(file_api_v1_api, 8);
+
+/**
+ * @generated from enum api.v1.JobApplicationStatus
+ */
+export enum JobApplicationStatus {
+  /**
+   * @generated from enum value: JOB_APPLICATION_STATUS_UNSPECIFIED = 0;
+   */
+  UNSPECIFIED = 0,
+
+  /**
+   * @generated from enum value: JOB_APPLICATION_STATUS_APPLIED = 1;
+   */
+  APPLIED = 1,
+
+  /**
+   * @generated from enum value: JOB_APPLICATION_STATUS_SCREENING = 3;
+   */
+  SCREENING = 3,
+
+  /**
+   * @generated from enum value: JOB_APPLICATION_STATUS_INTERVIEW = 4;
+   */
+  INTERVIEW = 4,
+
+  /**
+   * @generated from enum value: JOB_APPLICATION_STATUS_OFFER = 5;
+   */
+  OFFER = 5,
+
+  /**
+   * @generated from enum value: JOB_APPLICATION_STATUS_REJECTED = 6;
+   */
+  REJECTED = 6,
+
+  /**
+   * @generated from enum value: JOB_APPLICATION_STATUS_WITHDRAWN = 7;
+   */
+  WITHDRAWN = 7,
+
+  /**
+   * @generated from enum value: JOB_APPLICATION_STATUS_ACCEPTED = 8;
+   */
+  ACCEPTED = 8,
+}
+
+/**
+ * Describes the enum api.v1.JobApplicationStatus.
+ */
+export const JobApplicationStatusSchema: GenEnum<JobApplicationStatus> = /*@__PURE__*/
+  enumDesc(file_api_v1_api, 0);
 
 /**
  * @generated from service api.v1.Service

@@ -34,6 +34,7 @@ message UpdateJobApplicationRequest {
   google.protobuf.StringValue notes = 5;
   google.protobuf.StringValue cv = 6;
   google.protobuf.StringValue cover_letter = 7;
+  JobApplicationStatus status = 8;
 }
 
 message UpdateJobApplicationResponse {
@@ -47,16 +48,29 @@ message DeleteJobApplicationRequest {
 message DeleteJobApplicationResponse {
 }
 
+enum JobApplicationStatus {
+  JOB_APPLICATION_STATUS_UNSPECIFIED = 0;
+  JOB_APPLICATION_STATUS_APPLIED = 1;
+  JOB_APPLICATION_STATUS_SCREENING = 3;
+  JOB_APPLICATION_STATUS_INTERVIEW = 4;
+  JOB_APPLICATION_STATUS_OFFER = 5;
+  JOB_APPLICATION_STATUS_REJECTED = 6;
+  JOB_APPLICATION_STATUS_WITHDRAWN = 7;
+  JOB_APPLICATION_STATUS_ACCEPTED = 8;
+}
+
 message JobApplication {
   string id = 1;
   string company = 2;
   string title = 3;
-  google.protobuf.StringValue description = 4;
-  google.protobuf.StringValue notes = 5;
-  google.protobuf.StringValue cv = 6;
-  google.protobuf.StringValue cover_letter = 7;
-  google.protobuf.Timestamp created_at = 8;
-  google.protobuf.Timestamp updated_at = 9;
+  JobApplicationStatus status = 4;
+  google.protobuf.StringValue description = 5;
+  google.protobuf.StringValue notes = 6;
+  google.protobuf.StringValue cv = 7;
+  google.protobuf.StringValue cover_letter = 8;
+  google.protobuf.Timestamp applied_at = 9;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
 }
 
 service Service {
