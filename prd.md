@@ -1,0 +1,25 @@
+# Kiseki PRD
+
+- Track job applications
+  - Company
+  - Title
+  - Job description
+  - CV used
+  - Cover Letter used
+  - Feedback if not successful
+  - notes
+  - date
+- Statuses
+  - Applied
+  - Initial Interview/ screening call
+  - Interview Stage
+  - Offer
+  - Accepted
+  - Rejected/ no response
+- Create job applications
+- Update job applications
+- Delete job applications
+- Move between statuses freely
+- View job applications
+- View audit log/history of job application
+- Create user (email otp code) no password
