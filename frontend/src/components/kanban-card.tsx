@@ -25,7 +25,7 @@ export const KanbanCard = ({
         <p className="text-xs text-secondary-foreground">{title}</p>
       </CardContent>
       <CardFooter className="text-xs px-2 py-0 pb-2 text-muted-foreground flex items-center justify-between">
-        <span>{timestampDate(createdAt).toLocaleDateString()}</span>
+        <span>Applied: {timestampDate(createdAt).toLocaleDateString()}</span>
       </CardFooter>
     </Card>
   );

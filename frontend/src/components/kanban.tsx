@@ -2,6 +2,7 @@ import { JobApplicationStatus, type JobApplication } from "@/api/v1/api_pb";
 import { timestampFromDate } from "@bufbuild/protobuf/wkt";
 import { faker } from "@faker-js/faker";
 import { KanbanCard } from "@/components/kanban-card";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 const ColumnNames: Partial<{ [key in JobApplicationStatus]: string }> = {
   [JobApplicationStatus.APPLIED]: "Applied",
@@ -46,8 +47,8 @@ export const Kanban = () => {
         key={status}
         className="bg-accent py-4 px-2 flex flex-col gap-2 rounded-xl"
       >
-        <h2 className="text-md font-semibold text-left">
-          {ColumnNames[status]}
+        <h2 className="text-md font-semibold text-left mb-4">
+          {ColumnNames[status]} ({applications.length})
         </h2>
         {applications.map((job) => (
           <KanbanCard
@@ -63,11 +64,14 @@ export const Kanban = () => {
   }
 
   return (
-    <div
-      className="grid size-full grid-cols-7 gap-2 px-6"
-      aria-label="Kanban board"
-    >
-      {STATUSES.map((status) => renderColumn(status))}
-    </div>
+    <ScrollArea className="size-full whitespace-nowrap">
+      <div
+        className="grid size-full grid-cols-7 gap-2 px-6 min-w-[1400px]"
+        aria-label="Kanban board"
+      >
+        {STATUSES.map((status) => renderColumn(status))}
+      </div>
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
   );
 };
