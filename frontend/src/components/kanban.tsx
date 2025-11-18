@@ -3,6 +3,8 @@ import { timestampFromDate } from "@bufbuild/protobuf/wkt";
 import { faker } from "@faker-js/faker";
 import { KanbanCard } from "@/components/kanban-card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { ApplicationModal } from "@/components/application-modal";
 
 const ColumnNames: Partial<{ [key in JobApplicationStatus]: string }> = {
   [JobApplicationStatus.APPLIED]: "Applied",
@@ -51,13 +53,18 @@ export const Kanban = () => {
           {ColumnNames[status]} ({applications.length})
         </h2>
         {applications.map((job) => (
-          <KanbanCard
-            key={job.id}
-            title={job.title}
-            company={job.company}
-            createdAt={job.createdAt!}
-            color={ColumnColors[status]!}
-          />
+          <Dialog key={job.id}>
+            <DialogTrigger asChild>
+              <KanbanCard
+                title={job.title}
+                company={job.company}
+                createdAt={job.createdAt!}
+                color={ColumnColors[status]!}
+              />
+            </DialogTrigger>
+
+            <ApplicationModal jobApplication={job} />
+          </Dialog>
         ))}
       </div>
     );
