@@ -38,16 +38,16 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
     appliedAt,
   } = jobApplication;
   return (
-    <DialogContent className="h-[90vh] flex flex-col">
+    <DialogContent className="h-[90vh] sm:max-w-10/12">
       <DialogHeader>
         <DialogTitle>Job application</DialogTitle>
         <DialogDescription>
           Update your job application details here. Click save when you're done.
         </DialogDescription>
       </DialogHeader>
-      <ScrollArea className="grow overflow-hidden">
-        <form>
-          <FieldGroup>
+      <form className="flex flex-col grow min-h-0 gap-4">
+        <ScrollArea className="grow overflow-hidden">
+          <FieldGroup className="gap-4">
             <Field>
               <FieldLabel htmlFor="company">Company</FieldLabel>
               <Input id="company" value={company} />
@@ -112,16 +112,16 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
                 value={coverLetter}
               />
             </Field>
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DialogClose>
-              <Button type="submit">Save changes</Button>
-            </DialogFooter>
           </FieldGroup>
-        </form>
-        <ScrollBar orientation="vertical" />
-      </ScrollArea>
+          <ScrollBar orientation="vertical" />
+        </ScrollArea>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="outline">Cancel</Button>
+          </DialogClose>
+          <Button type="submit">Save changes</Button>
+        </DialogFooter>
+      </form>
     </DialogContent>
   );
 };
