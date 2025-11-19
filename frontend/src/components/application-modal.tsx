@@ -8,10 +8,19 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { timestampDate } from "@bufbuild/protobuf/wkt";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { JobApplicationStatusNames } from "@/constants/job-application-statuses";
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+  SelectItem,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 interface ApplicationModalProps {
   jobApplication: JobApplication;
@@ -37,53 +46,79 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
         </DialogDescription>
       </DialogHeader>
       <ScrollArea className="grow overflow-hidden">
-        <form className="grid gap-4">
-          <div className="grid gap-3">
-            <Label htmlFor="company">Company</Label>
-            <Input id="company" value={company} />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="title">Title</Label>
-            <Input id="title" value={title} />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="status">Status</Label>
-            <Input id="status" value={status} />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="description">Description</Label>
-            <Input id="description" value={description} />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="createdAt">Created At</Label>
-            <Input
-              id="createdAt"
-              value={timestampDate(createdAt!).toLocaleDateString()}
-            />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="appliedAt">Applied At</Label>
-            <Input
-              id="appliedAt"
-              value={
-                appliedAt ? timestampDate(appliedAt).toLocaleDateString() : ""
-              }
-            />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="cv">CV</Label>
-            <Input id="cv" value={cv} />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="coverLetter">Cover Letter</Label>
-            <Input id="coverLetter" value={coverLetter} />
-          </div>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <Button type="submit">Save changes</Button>
-          </DialogFooter>
+        <form>
+          <FieldGroup>
+            <Field>
+              <FieldLabel htmlFor="company">Company</FieldLabel>
+              <Input id="company" value={company} />
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="title">Title</FieldLabel>
+              <Input id="title" value={title} />
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="status">Status</FieldLabel>
+              <Select defaultValue={String(status)}>
+                <SelectTrigger id="status">
+                  <SelectValue placeholder="Applied" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(JobApplicationStatusNames).map(
+                    ([key, label]) => (
+                      <SelectItem key={key} value={key}>
+                        {label}
+                      </SelectItem>
+                    )
+                  )}
+                </SelectContent>
+              </Select>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="description">Job Description</FieldLabel>
+              <Textarea
+                id="description"
+                placeholder="Enter job description here"
+                className="resize-none"
+                value={description}
+              />
+            </Field>
+            {/* <Field>
+              <FieldLabel htmlFor="createdAt">Created At</FieldLabel>
+              <Input
+                id="createdAt"
+                value={timestampDate(createdAt!).toLocaleDateString()}
+              />
+            </Field> */}
+            <Field>
+              <FieldLabel htmlFor="appliedAt">Applied At</FieldLabel>
+              <Input
+                id="appliedAt"
+                value={
+                  appliedAt ? timestampDate(appliedAt).toLocaleDateString() : ""
+                }
+                type="date"
+              />
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="cv">CV</FieldLabel>
+              <Input id="cv" value={cv} type="file" />
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="coverLetter">Cover Letter</FieldLabel>
+              <Textarea
+                id="coverLetter"
+                placeholder="Enter cover letter here"
+                className="resize-none"
+                value={coverLetter}
+              />
+            </Field>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+              <Button type="submit">Save changes</Button>
+            </DialogFooter>
+          </FieldGroup>
         </form>
         <ScrollBar orientation="vertical" />
       </ScrollArea>
