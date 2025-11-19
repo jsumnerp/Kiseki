@@ -5,16 +5,7 @@ import { KanbanCard } from "@/components/kanban-card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { ApplicationModal } from "@/components/application-modal";
-
-const ColumnNames: Partial<{ [key in JobApplicationStatus]: string }> = {
-  [JobApplicationStatus.APPLIED]: "Applied",
-  [JobApplicationStatus.INTERVIEW]: "Interviewing",
-  [JobApplicationStatus.OFFER]: "Offered",
-  [JobApplicationStatus.REJECTED]: "Rejected",
-  [JobApplicationStatus.ACCEPTED]: "Accepted",
-  [JobApplicationStatus.WITHDRAWN]: "Withdrawn",
-  [JobApplicationStatus.SCREENING]: "Screening",
-};
+import { JobApplicationStatusNames } from "@/constants/job-application-statuses";
 
 const ColumnColors: Partial<{ [key in JobApplicationStatus]: string }> = {
   [JobApplicationStatus.APPLIED]: "bg-gray-900 dark:bg-gray-100",
@@ -50,7 +41,7 @@ export const Kanban = () => {
         className="bg-accent py-4 px-2 flex flex-col gap-2 rounded-xl"
       >
         <h2 className="text-md font-semibold text-left mb-4">
-          {ColumnNames[status]} ({applications.length})
+          {JobApplicationStatusNames[status]} ({applications.length})
         </h2>
         {applications.map((job) => (
           <Dialog key={job.id}>
