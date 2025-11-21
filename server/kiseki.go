@@ -18,6 +18,7 @@ type JobApplication struct {
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 	DeletedAt   *time.Time
+	AppliedOn   time.Time
 }
 
 type NewJobApplicationParams struct {
@@ -28,6 +29,7 @@ type NewJobApplicationParams struct {
 	Notes       *string
 	CV          *string
 	CoverLetter *string
+	AppliedOn   time.Time
 }
 
 func NewJobApplication(params NewJobApplicationParams) JobApplication {
@@ -40,6 +42,7 @@ func NewJobApplication(params NewJobApplicationParams) JobApplication {
 		Notes:       params.Notes,
 		CV:          params.CV,
 		CoverLetter: params.CoverLetter,
+		AppliedOn:   params.AppliedOn,
 	}
 }
 
@@ -55,6 +58,7 @@ type UpdateJobApplicationParams struct {
 	Notes       *string
 	CV          *string
 	CoverLetter *string
+	AppliedOn   time.Time
 }
 
 func (j *JobApplication) Update(params UpdateJobApplicationParams) {
@@ -67,4 +71,5 @@ func (j *JobApplication) Update(params UpdateJobApplicationParams) {
 	j.Notes = params.Notes
 	j.CV = params.CV
 	j.CoverLetter = params.CoverLetter
+	j.AppliedOn = params.AppliedOn
 }

@@ -14,6 +14,7 @@ message CreateJobApplicationRequest {
   google.protobuf.StringValue notes = 4;
   google.protobuf.StringValue cv = 5;
   google.protobuf.StringValue cover_letter = 6;
+  google.protobuf.Timestamp applied_on = 7;
 }
 
 message CreateJobApplicationResponse {
@@ -35,6 +36,7 @@ message UpdateJobApplicationRequest {
   google.protobuf.StringValue cv = 6;
   google.protobuf.StringValue cover_letter = 7;
   JobApplicationStatus status = 8;
+  google.protobuf.Timestamp applied_on = 9;
 }
 
 message UpdateJobApplicationResponse {
@@ -68,7 +70,7 @@ message JobApplication {
   google.protobuf.StringValue notes = 6;
   google.protobuf.StringValue cv = 7;
   google.protobuf.StringValue cover_letter = 8;
-  google.protobuf.Timestamp applied_at = 9;
+  google.protobuf.Timestamp applied_on = 9;
   google.protobuf.Timestamp created_at = 10;
   google.protobuf.Timestamp updated_at = 11;
 }

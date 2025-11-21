@@ -35,7 +35,7 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
     description,
     cv,
     coverLetter,
-    appliedAt,
+    appliedOn,
   } = jobApplication;
   return (
     <DialogContent className="h-[90vh] sm:max-w-10/12">
@@ -90,11 +90,11 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
               />
             </Field> */}
             <Field>
-              <FieldLabel htmlFor="appliedAt">Applied At</FieldLabel>
+              <FieldLabel htmlFor="appliedOn">Applied On</FieldLabel>
               <Input
-                id="appliedAt"
+                id="appliedOn"
                 value={
-                  appliedAt ? timestampDate(appliedAt).toLocaleDateString() : ""
+                  appliedOn ? timestampDate(appliedOn).toLocaleDateString() : ""
                 }
                 type="date"
               />
