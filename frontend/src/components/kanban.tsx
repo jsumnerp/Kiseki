@@ -5,7 +5,10 @@ import { KanbanCard } from "@/components/kanban-card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { ApplicationModal } from "@/components/application-modal";
-import { JobApplicationStatusNames } from "@/constants/job-application-statuses";
+import {
+  JobApplicationStatusNames,
+  STATUSES,
+} from "@/constants/job-application-statuses";
 
 const ColumnColors: Partial<{ [key in JobApplicationStatus]: string }> = {
   [JobApplicationStatus.APPLIED]: "bg-gray-900 dark:bg-gray-100",
@@ -16,11 +19,6 @@ const ColumnColors: Partial<{ [key in JobApplicationStatus]: string }> = {
   [JobApplicationStatus.WITHDRAWN]: "bg-red-900 dark:bg-red-100",
   [JobApplicationStatus.SCREENING]: "bg-blue-900 dark:bg-blue-100",
 };
-
-const STATUSES = Object.values(JobApplicationStatus).filter(
-  (value) =>
-    typeof value === "number" && value !== JobApplicationStatus.UNSPECIFIED
-) as JobApplicationStatus[];
 
 const jobApplications: JobApplication[] = Array.from({ length: 20 }, () => ({
   $typeName: "api.v1.JobApplication",

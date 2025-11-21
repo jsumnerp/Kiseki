@@ -18,7 +18,7 @@ import {
 import { supabase } from "@/lib/supabase";
 
 const otpFormSchema = z.object({
-  token: z.string().regex(/^\d{8}$/, "Code must be exactly 8 digits"),
+  token: z.string().regex(/^\d{6}$/, "Code must be exactly 6 digits"),
 });
 
 interface OTPFormProps {
@@ -71,7 +71,7 @@ export const OTPForm = ({ email, handleGoBack }: OTPFormProps) => {
                 <FormItem>
                   <FormLabel>One-Time Password</FormLabel>
                   <FormControl>
-                    <InputOTP maxLength={8} {...field}>
+                    <InputOTP maxLength={6} {...field}>
                       <InputOTPGroup>
                         <InputOTPSlot index={0} />
                         <InputOTPSlot index={1} />
@@ -79,8 +79,6 @@ export const OTPForm = ({ email, handleGoBack }: OTPFormProps) => {
                         <InputOTPSlot index={3} />
                         <InputOTPSlot index={4} />
                         <InputOTPSlot index={5} />
-                        <InputOTPSlot index={6} />
-                        <InputOTPSlot index={7} />
                       </InputOTPGroup>
                     </InputOTP>
                   </FormControl>
