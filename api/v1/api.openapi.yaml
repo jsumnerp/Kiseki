@@ -177,6 +177,9 @@ components:
         coverLetter:
           title: cover_letter
           $ref: '#/components/schemas/google.protobuf.StringValue'
+        appliedOn:
+          title: applied_on
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
       title: CreateJobApplicationRequest
       additionalProperties: false
     api.v1.CreateJobApplicationResponse:
@@ -226,8 +229,8 @@ components:
         coverLetter:
           title: cover_letter
           $ref: '#/components/schemas/google.protobuf.StringValue'
-        appliedAt:
-          title: applied_at
+        appliedOn:
+          title: applied_on
           $ref: '#/components/schemas/google.protobuf.Timestamp'
         createdAt:
           title: created_at
@@ -278,6 +281,9 @@ components:
         status:
           title: status
           $ref: '#/components/schemas/api.v1.JobApplicationStatus'
+        appliedOn:
+          title: applied_on
+          $ref: '#/components/schemas/google.protobuf.Timestamp'
       title: UpdateJobApplicationRequest
       additionalProperties: false
     api.v1.UpdateJobApplicationResponse:

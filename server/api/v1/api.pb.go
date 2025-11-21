@@ -95,6 +95,7 @@ type CreateJobApplicationRequest struct {
 	Notes         *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=notes,proto3" json:"notes,omitempty"`
 	Cv            *wrapperspb.StringValue `protobuf:"bytes,5,opt,name=cv,proto3" json:"cv,omitempty"`
 	CoverLetter   *wrapperspb.StringValue `protobuf:"bytes,6,opt,name=cover_letter,json=coverLetter,proto3" json:"cover_letter,omitempty"`
+	AppliedOn     *timestamppb.Timestamp  `protobuf:"bytes,7,opt,name=applied_on,json=appliedOn,proto3" json:"applied_on,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -167,6 +168,13 @@ func (x *CreateJobApplicationRequest) GetCv() *wrapperspb.StringValue {
 func (x *CreateJobApplicationRequest) GetCoverLetter() *wrapperspb.StringValue {
 	if x != nil {
 		return x.CoverLetter
+	}
+	return nil
+}
+
+func (x *CreateJobApplicationRequest) GetAppliedOn() *timestamppb.Timestamp {
+	if x != nil {
+		return x.AppliedOn
 	}
 	return nil
 }
@@ -305,6 +313,7 @@ type UpdateJobApplicationRequest struct {
 	Cv            *wrapperspb.StringValue `protobuf:"bytes,6,opt,name=cv,proto3" json:"cv,omitempty"`
 	CoverLetter   *wrapperspb.StringValue `protobuf:"bytes,7,opt,name=cover_letter,json=coverLetter,proto3" json:"cover_letter,omitempty"`
 	Status        JobApplicationStatus    `protobuf:"varint,8,opt,name=status,proto3,enum=api.v1.JobApplicationStatus" json:"status,omitempty"`
+	AppliedOn     *timestamppb.Timestamp  `protobuf:"bytes,9,opt,name=applied_on,json=appliedOn,proto3" json:"applied_on,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -393,6 +402,13 @@ func (x *UpdateJobApplicationRequest) GetStatus() JobApplicationStatus {
 		return x.Status
 	}
 	return JobApplicationStatus_JOB_APPLICATION_STATUS_UNSPECIFIED
+}
+
+func (x *UpdateJobApplicationRequest) GetAppliedOn() *timestamppb.Timestamp {
+	if x != nil {
+		return x.AppliedOn
+	}
+	return nil
 }
 
 type UpdateJobApplicationResponse struct {
@@ -529,7 +545,7 @@ type JobApplication struct {
 	Notes         *wrapperspb.StringValue `protobuf:"bytes,6,opt,name=notes,proto3" json:"notes,omitempty"`
 	Cv            *wrapperspb.StringValue `protobuf:"bytes,7,opt,name=cv,proto3" json:"cv,omitempty"`
 	CoverLetter   *wrapperspb.StringValue `protobuf:"bytes,8,opt,name=cover_letter,json=coverLetter,proto3" json:"cover_letter,omitempty"`
-	AppliedAt     *timestamppb.Timestamp  `protobuf:"bytes,9,opt,name=applied_at,json=appliedAt,proto3" json:"applied_at,omitempty"`
+	AppliedOn     *timestamppb.Timestamp  `protobuf:"bytes,9,opt,name=applied_on,json=appliedOn,proto3" json:"applied_on,omitempty"`
 	CreatedAt     *timestamppb.Timestamp  `protobuf:"bytes,10,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	UpdatedAt     *timestamppb.Timestamp  `protobuf:"bytes,11,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -622,9 +638,9 @@ func (x *JobApplication) GetCoverLetter() *wrapperspb.StringValue {
 	return nil
 }
 
-func (x *JobApplication) GetAppliedAt() *timestamppb.Timestamp {
+func (x *JobApplication) GetAppliedOn() *timestamppb.Timestamp {
 	if x != nil {
-		return x.AppliedAt
+		return x.AppliedOn
 	}
 	return nil
 }
@@ -647,19 +663,21 @@ var File_api_v1_api_proto protoreflect.FileDescriptor
 
 const file_api_v1_api_proto_rawDesc = "" +
 	"\n" +
-	"\x10api/v1/api.proto\x12\x06api.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/wrappers.proto\"\xb0\x02\n" +
+	"\x10api/v1/api.proto\x12\x06api.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/wrappers.proto\"\xeb\x02\n" +
 	"\x1bCreateJobApplicationRequest\x12\x18\n" +
 	"\acompany\x18\x01 \x01(\tR\acompany\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12>\n" +
 	"\vdescription\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\vdescription\x122\n" +
 	"\x05notes\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\x05notes\x12,\n" +
 	"\x02cv\x18\x05 \x01(\v2\x1c.google.protobuf.StringValueR\x02cv\x12?\n" +
-	"\fcover_letter\x18\x06 \x01(\v2\x1c.google.protobuf.StringValueR\vcoverLetter\"_\n" +
+	"\fcover_letter\x18\x06 \x01(\v2\x1c.google.protobuf.StringValueR\vcoverLetter\x129\n" +
+	"\n" +
+	"applied_on\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tappliedOn\"_\n" +
 	"\x1cCreateJobApplicationResponse\x12?\n" +
 	"\x0fjob_application\x18\x01 \x01(\v2\x16.api.v1.JobApplicationR\x0ejobApplication\"\x1c\n" +
 	"\x1aListJobApplicationsRequest\"`\n" +
 	"\x1bListJobApplicationsResponse\x12A\n" +
-	"\x10job_applications\x18\x01 \x03(\v2\x16.api.v1.JobApplicationR\x0fjobApplications\"\xf6\x02\n" +
+	"\x10job_applications\x18\x01 \x03(\v2\x16.api.v1.JobApplicationR\x0fjobApplications\"\xb1\x03\n" +
 	"\x1bUpdateJobApplicationRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x18\n" +
 	"\acompany\x18\x02 \x01(\tR\acompany\x12\x14\n" +
@@ -668,7 +686,9 @@ const file_api_v1_api_proto_rawDesc = "" +
 	"\x05notes\x18\x05 \x01(\v2\x1c.google.protobuf.StringValueR\x05notes\x12,\n" +
 	"\x02cv\x18\x06 \x01(\v2\x1c.google.protobuf.StringValueR\x02cv\x12?\n" +
 	"\fcover_letter\x18\a \x01(\v2\x1c.google.protobuf.StringValueR\vcoverLetter\x124\n" +
-	"\x06status\x18\b \x01(\x0e2\x1c.api.v1.JobApplicationStatusR\x06status\"_\n" +
+	"\x06status\x18\b \x01(\x0e2\x1c.api.v1.JobApplicationStatusR\x06status\x129\n" +
+	"\n" +
+	"applied_on\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tappliedOn\"_\n" +
 	"\x1cUpdateJobApplicationResponse\x12?\n" +
 	"\x0fjob_application\x18\x01 \x01(\v2\x16.api.v1.JobApplicationR\x0ejobApplication\"-\n" +
 	"\x1bDeleteJobApplicationRequest\x12\x0e\n" +
@@ -684,7 +704,7 @@ const file_api_v1_api_proto_rawDesc = "" +
 	"\x02cv\x18\a \x01(\v2\x1c.google.protobuf.StringValueR\x02cv\x12?\n" +
 	"\fcover_letter\x18\b \x01(\v2\x1c.google.protobuf.StringValueR\vcoverLetter\x129\n" +
 	"\n" +
-	"applied_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tappliedAt\x129\n" +
+	"applied_on\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tappliedOn\x129\n" +
 	"\n" +
 	"created_at\x18\n" +
 	" \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
@@ -738,35 +758,37 @@ var file_api_v1_api_proto_depIdxs = []int32{
 	10, // 1: api.v1.CreateJobApplicationRequest.notes:type_name -> google.protobuf.StringValue
 	10, // 2: api.v1.CreateJobApplicationRequest.cv:type_name -> google.protobuf.StringValue
 	10, // 3: api.v1.CreateJobApplicationRequest.cover_letter:type_name -> google.protobuf.StringValue
-	9,  // 4: api.v1.CreateJobApplicationResponse.job_application:type_name -> api.v1.JobApplication
-	9,  // 5: api.v1.ListJobApplicationsResponse.job_applications:type_name -> api.v1.JobApplication
-	10, // 6: api.v1.UpdateJobApplicationRequest.description:type_name -> google.protobuf.StringValue
-	10, // 7: api.v1.UpdateJobApplicationRequest.notes:type_name -> google.protobuf.StringValue
-	10, // 8: api.v1.UpdateJobApplicationRequest.cv:type_name -> google.protobuf.StringValue
-	10, // 9: api.v1.UpdateJobApplicationRequest.cover_letter:type_name -> google.protobuf.StringValue
-	0,  // 10: api.v1.UpdateJobApplicationRequest.status:type_name -> api.v1.JobApplicationStatus
-	9,  // 11: api.v1.UpdateJobApplicationResponse.job_application:type_name -> api.v1.JobApplication
-	0,  // 12: api.v1.JobApplication.status:type_name -> api.v1.JobApplicationStatus
-	10, // 13: api.v1.JobApplication.description:type_name -> google.protobuf.StringValue
-	10, // 14: api.v1.JobApplication.notes:type_name -> google.protobuf.StringValue
-	10, // 15: api.v1.JobApplication.cv:type_name -> google.protobuf.StringValue
-	10, // 16: api.v1.JobApplication.cover_letter:type_name -> google.protobuf.StringValue
-	11, // 17: api.v1.JobApplication.applied_at:type_name -> google.protobuf.Timestamp
-	11, // 18: api.v1.JobApplication.created_at:type_name -> google.protobuf.Timestamp
-	11, // 19: api.v1.JobApplication.updated_at:type_name -> google.protobuf.Timestamp
-	1,  // 20: api.v1.Service.CreateJobApplication:input_type -> api.v1.CreateJobApplicationRequest
-	3,  // 21: api.v1.Service.ListJobApplications:input_type -> api.v1.ListJobApplicationsRequest
-	5,  // 22: api.v1.Service.UpdateJobApplication:input_type -> api.v1.UpdateJobApplicationRequest
-	7,  // 23: api.v1.Service.DeleteJobApplication:input_type -> api.v1.DeleteJobApplicationRequest
-	2,  // 24: api.v1.Service.CreateJobApplication:output_type -> api.v1.CreateJobApplicationResponse
-	4,  // 25: api.v1.Service.ListJobApplications:output_type -> api.v1.ListJobApplicationsResponse
-	6,  // 26: api.v1.Service.UpdateJobApplication:output_type -> api.v1.UpdateJobApplicationResponse
-	8,  // 27: api.v1.Service.DeleteJobApplication:output_type -> api.v1.DeleteJobApplicationResponse
-	24, // [24:28] is the sub-list for method output_type
-	20, // [20:24] is the sub-list for method input_type
-	20, // [20:20] is the sub-list for extension type_name
-	20, // [20:20] is the sub-list for extension extendee
-	0,  // [0:20] is the sub-list for field type_name
+	11, // 4: api.v1.CreateJobApplicationRequest.applied_on:type_name -> google.protobuf.Timestamp
+	9,  // 5: api.v1.CreateJobApplicationResponse.job_application:type_name -> api.v1.JobApplication
+	9,  // 6: api.v1.ListJobApplicationsResponse.job_applications:type_name -> api.v1.JobApplication
+	10, // 7: api.v1.UpdateJobApplicationRequest.description:type_name -> google.protobuf.StringValue
+	10, // 8: api.v1.UpdateJobApplicationRequest.notes:type_name -> google.protobuf.StringValue
+	10, // 9: api.v1.UpdateJobApplicationRequest.cv:type_name -> google.protobuf.StringValue
+	10, // 10: api.v1.UpdateJobApplicationRequest.cover_letter:type_name -> google.protobuf.StringValue
+	0,  // 11: api.v1.UpdateJobApplicationRequest.status:type_name -> api.v1.JobApplicationStatus
+	11, // 12: api.v1.UpdateJobApplicationRequest.applied_on:type_name -> google.protobuf.Timestamp
+	9,  // 13: api.v1.UpdateJobApplicationResponse.job_application:type_name -> api.v1.JobApplication
+	0,  // 14: api.v1.JobApplication.status:type_name -> api.v1.JobApplicationStatus
+	10, // 15: api.v1.JobApplication.description:type_name -> google.protobuf.StringValue
+	10, // 16: api.v1.JobApplication.notes:type_name -> google.protobuf.StringValue
+	10, // 17: api.v1.JobApplication.cv:type_name -> google.protobuf.StringValue
+	10, // 18: api.v1.JobApplication.cover_letter:type_name -> google.protobuf.StringValue
+	11, // 19: api.v1.JobApplication.applied_on:type_name -> google.protobuf.Timestamp
+	11, // 20: api.v1.JobApplication.created_at:type_name -> google.protobuf.Timestamp
+	11, // 21: api.v1.JobApplication.updated_at:type_name -> google.protobuf.Timestamp
+	1,  // 22: api.v1.Service.CreateJobApplication:input_type -> api.v1.CreateJobApplicationRequest
+	3,  // 23: api.v1.Service.ListJobApplications:input_type -> api.v1.ListJobApplicationsRequest
+	5,  // 24: api.v1.Service.UpdateJobApplication:input_type -> api.v1.UpdateJobApplicationRequest
+	7,  // 25: api.v1.Service.DeleteJobApplication:input_type -> api.v1.DeleteJobApplicationRequest
+	2,  // 26: api.v1.Service.CreateJobApplication:output_type -> api.v1.CreateJobApplicationResponse
+	4,  // 27: api.v1.Service.ListJobApplications:output_type -> api.v1.ListJobApplicationsResponse
+	6,  // 28: api.v1.Service.UpdateJobApplication:output_type -> api.v1.UpdateJobApplicationResponse
+	8,  // 29: api.v1.Service.DeleteJobApplication:output_type -> api.v1.DeleteJobApplicationResponse
+	26, // [26:30] is the sub-list for method output_type
+	22, // [22:26] is the sub-list for method input_type
+	22, // [22:22] is the sub-list for extension type_name
+	22, // [22:22] is the sub-list for extension extendee
+	0,  // [0:22] is the sub-list for field type_name
 }
 
 func init() { file_api_v1_api_proto_init() }

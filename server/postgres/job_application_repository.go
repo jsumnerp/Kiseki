@@ -45,6 +45,7 @@ func (r *jobApplicationRepository) Save(ctx context.Context, jobApplication *kis
 				"created_at",
 				"updated_at",
 				"deleted_at",
+				"applied_on",
 			).
 			Values(
 				jobApplication.ID,
@@ -58,6 +59,7 @@ func (r *jobApplicationRepository) Save(ctx context.Context, jobApplication *kis
 				jobApplication.CreatedAt,
 				jobApplication.UpdatedAt,
 				jobApplication.DeletedAt,
+				jobApplication.AppliedOn,
 			).
 			PlaceholderFormat(sq.Dollar).
 			ToSql()
@@ -79,6 +81,7 @@ func (r *jobApplicationRepository) Save(ctx context.Context, jobApplication *kis
 		Set("cover_letter", jobApplication.CoverLetter).
 		Set("updated_at", jobApplication.UpdatedAt).
 		Set("deleted_at", jobApplication.DeletedAt).
+		Set("applied_on", jobApplication.AppliedOn).
 		Where(sq.Eq{"id": jobApplication.ID}).
 		PlaceholderFormat(sq.Dollar).
 		ToSql()
@@ -103,6 +106,7 @@ func (r *jobApplicationRepository) Find(ctx context.Context, id string) (*kiseki
 		"created_at",
 		"updated_at",
 		"deleted_at",
+		"applied_on",
 	).
 		From("job_applications").
 		Where(sq.Eq{"id": id}).
@@ -126,6 +130,7 @@ func (r *jobApplicationRepository) Find(ctx context.Context, id string) (*kiseki
 		&ja.CreatedAt,
 		&ja.UpdatedAt,
 		&ja.DeletedAt,
+		&ja.AppliedOn,
 	)
 
 	if err == pgx.ErrNoRows {
@@ -152,6 +157,7 @@ func (r *jobApplicationRepository) List(ctx context.Context, userID string) ([]*
 		"created_at",
 		"updated_at",
 		"deleted_at",
+		"applied_on",
 	).
 		From("job_applications").
 		Where(sq.Eq{"user_id": userID}).
@@ -184,6 +190,7 @@ func (r *jobApplicationRepository) List(ctx context.Context, userID string) ([]*
 			&ja.CreatedAt,
 			&ja.UpdatedAt,
 			&ja.DeletedAt,
+			&ja.AppliedOn,
 		)
 		if err != nil {
 			return nil, err

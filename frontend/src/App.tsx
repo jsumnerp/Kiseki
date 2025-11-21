@@ -32,7 +32,6 @@ function App() {
   };
 
   const getView = () => {
-    console.log(session);
     if (session) {
       return <Kanban />;
     } else if (showOTP) {
