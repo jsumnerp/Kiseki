@@ -6,6 +6,15 @@ import { OTPForm } from "@/components/otp-form";
 import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
 import type { Session } from "@supabase/supabase-js";
+import { createConnectTransport } from "@connectrpc/connect-web";
+import { TransportProvider } from "@connectrpc/connect-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const finalTransport = createConnectTransport({
+  baseUrl: import.meta.env.VITE_SUPABASE_URL,
+});
+
+const queryClient = new QueryClient();
 
 function App() {
   const [showOTP, setShowOTP] = useState(false);
@@ -29,6 +38,7 @@ function App() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setSession(null);
+    setShowOTP(false);
   };
 
   const getView = () => {
@@ -49,10 +59,14 @@ function App() {
   };
 
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Header isLoggedIn={!!session} onLogout={handleLogout} />
-      {getView()}
-    </ThemeProvider>
+    <TransportProvider transport={finalTransport}>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+          <Header isLoggedIn={!!session} onLogout={handleLogout} />
+          {getView()}
+        </ThemeProvider>
+      </QueryClientProvider>
+    </TransportProvider>
   );
 }
 

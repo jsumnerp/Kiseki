@@ -11,3 +11,8 @@ export const JobApplicationStatusNames: Partial<{
   [JobApplicationStatus.WITHDRAWN]: "Withdrawn",
   [JobApplicationStatus.SCREENING]: "Screening",
 };
+
+export const STATUSES = Object.values(JobApplicationStatus).filter(
+  (value) =>
+    typeof value === "number" && value !== JobApplicationStatus.UNSPECIFIED
+) as JobApplicationStatus[];

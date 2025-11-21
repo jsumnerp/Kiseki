@@ -1,4 +1,4 @@
-import type { JobApplication } from "@/api/v1/api_pb";
+import { JobApplicationStatus, type JobApplication } from "@/api/v1/api_pb";
 import {
   DialogHeader,
   DialogContent,
@@ -11,7 +11,6 @@ import { timestampDate } from "@bufbuild/protobuf/wkt";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { JobApplicationStatusNames } from "@/constants/job-application-statuses";
 import {
   Select,
@@ -21,10 +20,40 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 interface ApplicationModalProps {
   jobApplication: JobApplication;
 }
+
+const applicationFormSchema = z.object({
+  company: z.string().nonempty("Company is required"),
+  title: z.string().nonempty("Title is required"),
+  status: z
+    .enum(JobApplicationStatus)
+    .refine((value) => value !== JobApplicationStatus.UNSPECIFIED, {
+      message: "Unspecified status is not allowed",
+    }),
+  description: z.string().optional(),
+  cv: z
+    .instanceof(File)
+    .refine((file) => ["application/pdf"].includes(file.type), {
+      message: "Invalid document file type",
+    })
+    .optional(),
+  coverLetter: z.string().optional(),
+  appliedOn: z.iso.date(),
+});
 
 export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
   const {
@@ -37,6 +66,26 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
     coverLetter,
     appliedOn,
   } = jobApplication;
+
+  const form = useForm<z.infer<typeof applicationFormSchema>>({
+    resolver: zodResolver(applicationFormSchema),
+    defaultValues: {
+      company: company || "",
+      title: title || "",
+      status: status ?? JobApplicationStatus.APPLIED,
+      description: description || "",
+      cv: undefined,
+      coverLetter: coverLetter || "",
+      appliedOn: appliedOn
+        ? timestampDate(appliedOn).toISOString().slice(0, 10)
+        : "",
+    },
+  });
+
+  async function onSubmit(values: z.infer<typeof applicationFormSchema>) {
+    console.log("Submitted values:", values);
+  }
+
   return (
     <DialogContent className="h-[90vh] sm:max-w-10/12">
       <DialogHeader>
@@ -45,83 +94,149 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
           Update your job application details here. Click save when you're done.
         </DialogDescription>
       </DialogHeader>
-      <form className="flex flex-col grow min-h-0 gap-4">
-        <ScrollArea className="grow overflow-hidden">
-          <FieldGroup className="gap-4">
-            <Field>
-              <FieldLabel htmlFor="company">Company</FieldLabel>
-              <Input id="company" value={company} />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="title">Title</FieldLabel>
-              <Input id="title" value={title} />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="status">Status</FieldLabel>
-              <Select defaultValue={String(status)}>
-                <SelectTrigger id="status">
-                  <SelectValue placeholder="Applied" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.entries(JobApplicationStatusNames).map(
-                    ([key, label]) => (
-                      <SelectItem key={key} value={key}>
-                        {label}
-                      </SelectItem>
-                    )
-                  )}
-                </SelectContent>
-              </Select>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="description">Job Description</FieldLabel>
-              <Textarea
-                id="description"
-                placeholder="Enter job description here"
-                className="resize-none"
-                value={description}
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col grow min-h-0 gap-4"
+        >
+          <ScrollArea className="grow overflow-hidden">
+            <div className="flex flex-col gap-4">
+              <FormField
+                control={form.control}
+                name="company"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Company</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </Field>
-            {/* <Field>
-              <FieldLabel htmlFor="createdAt">Created At</FieldLabel>
-              <Input
-                id="createdAt"
-                value={timestampDate(createdAt!).toLocaleDateString()}
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Title</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </Field> */}
-            <Field>
-              <FieldLabel htmlFor="appliedOn">Applied On</FieldLabel>
-              <Input
-                id="appliedOn"
-                value={
-                  appliedOn ? timestampDate(appliedOn).toLocaleDateString() : ""
-                }
-                type="date"
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Status</FormLabel>
+                    <FormControl>
+                      <Select
+                        {...field}
+                        value={String(field.value)}
+                        onValueChange={(val) =>
+                          field.onChange(Number(val) as JobApplicationStatus)
+                        }
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select status" />
+                        </SelectTrigger>
+                        <SelectContent className="w-full">
+                          {Object.entries(JobApplicationStatusNames).map(
+                            ([key, label]) => (
+                              <SelectItem key={key} value={String(key)}>
+                                {label}
+                              </SelectItem>
+                            )
+                          )}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="cv">CV</FieldLabel>
-              <Input id="cv" value={cv} type="file" />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="coverLetter">Cover Letter</FieldLabel>
-              <Textarea
-                id="coverLetter"
-                placeholder="Enter cover letter here"
-                className="resize-none"
-                value={coverLetter}
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Job Description</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        className="resize-none"
+                        placeholder="Enter job description here"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </Field>
-          </FieldGroup>
-          <ScrollBar orientation="vertical" />
-        </ScrollArea>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
-          </DialogClose>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
-      </form>
+
+              <FormField
+                control={form.control}
+                name="appliedOn"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Applied On</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="date" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="cv"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>CV</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="file"
+                        name={field.name}
+                        onBlur={field.onBlur}
+                        onChange={(e) => field.onChange(e.target.files?.[0])}
+                        ref={field.ref}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="coverLetter"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Cover Letter</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        placeholder="Enter cover letter here"
+                        className="resize-none"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <ScrollBar orientation="vertical" />
+          </ScrollArea>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button type="submit">Save changes</Button>
+          </DialogFooter>
+        </form>
+      </Form>
     </DialogContent>
   );
 };
