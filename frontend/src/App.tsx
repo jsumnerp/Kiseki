@@ -1,9 +1,9 @@
-import { Kanban } from "@/components/kanban";
+import { KanbanView } from "@/views/kanban-view";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
 import { LoginForm } from "@/components/login-form";
 import { OTPForm } from "@/components/otp-form";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { supabase } from "./lib/supabase";
 import { createConnectTransport } from "@connectrpc/connect-web";
 import { TransportProvider } from "@connectrpc/connect-query";
@@ -37,7 +37,7 @@ function App() {
 
   const getView = () => {
     if (session) {
-      return <Kanban />;
+      return <KanbanView />;
     } else if (showOTP) {
       return <OTPForm email={email} handleGoBack={() => setShowOTP(false)} />;
     } else {

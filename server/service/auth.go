@@ -59,7 +59,10 @@ func getUserID(ctx context.Context) (string, error) {
 
 	// Try to get Supabase claims
 	if supabaseClaims, ok := claims.(*SupabaseClaims); ok {
-		return supabaseClaims.UserID, nil
+		// Use Subject from RegisteredClaims, not UserID
+		if supabaseClaims.Subject != "" {
+			return supabaseClaims.Subject, nil
+		}
 	}
 
 	// Try to get from map claims
@@ -75,7 +78,6 @@ func getUserID(ctx context.Context) (string, error) {
 // SupabaseClaims represents the claims in a Supabase JWT
 type SupabaseClaims struct {
 	jwt.RegisteredClaims
-	UserID string `json:"sub"`
-	Email  string `json:"email"`
-	Role   string `json:"role"`
+	Email string `json:"email"`
+	Role  string `json:"role"`
 }

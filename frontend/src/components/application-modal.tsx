@@ -30,13 +30,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useMutation, useQuery } from "@connectrpc/connect-query";
-import { createJobApplication } from "@/api/v1/api-Service_connectquery";
 import { supabase } from "@/lib/supabase";
 import { useAuthStore } from "@/stores/auth-store";
+import { useEffect, useState } from "react";
+import { useCreateJobApplication } from "@/hooks/useCreateJobApplication";
+import { useUpdateJobApplication } from "@/hooks/useUpdateJobApplication";
 
 interface ApplicationModalProps {
   jobApplication?: JobApplication;
+  onClose: () => void;
 }
 
 const applicationFormSchema = z.object({
@@ -59,13 +61,18 @@ const applicationFormSchema = z.object({
   notes: z.string().optional(),
 });
 
-export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
+export const ApplicationModal = ({
+  jobApplication,
+  onClose,
+}: ApplicationModalProps) => {
   const isNewApplication = !jobApplication;
 
-  const mutation = useMutation(createJobApplication);
+  const createJobApplicationMutation = useCreateJobApplication();
+  const updateJobApplicationMutation = useUpdateJobApplication();
   const user = useAuthStore((state) => state.user);
+  const [cvUrl, setCvUrl] = useState<string>();
+
   const {
-    createdAt,
     company,
     title,
     status,
@@ -75,6 +82,22 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
     appliedOn,
     notes,
   } = jobApplication || {};
+
+  useEffect(() => {
+    async function fetchSignedUrl() {
+      if (!cv) return;
+
+      const { data, error } = await supabase.storage
+        .from("resumes")
+        .createSignedUrl(cv, 3600); // 1 hour expiry
+
+      if (data && !error) {
+        setCvUrl(data.signedUrl);
+      }
+    }
+
+    fetchSignedUrl();
+  }, [cv]);
 
   const form = useForm<z.infer<typeof applicationFormSchema>>({
     resolver: zodResolver(applicationFormSchema),
@@ -106,17 +129,28 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
       cvPath = data.path;
     }
 
-    console.log("Submitted values:", values);
-    mutation.mutate({
-      company: values.company,
-      title: values.title,
-      status: values.status,
-      description: values.description,
-      coverLetter: values.coverLetter,
-      appliedOn: timestampFromDate(new Date(values.appliedOn)),
-      notes: values.notes,
-      cv: cvPath,
-    });
+    const mutation = isNewApplication
+      ? createJobApplicationMutation
+      : updateJobApplicationMutation;
+
+    mutation.mutate(
+      {
+        ...(isNewApplication ? {} : { id: jobApplication.id }),
+        company: values.company,
+        title: values.title,
+        status: values.status,
+        description: values.description,
+        coverLetter: values.coverLetter,
+        appliedOn: timestampFromDate(new Date(values.appliedOn)),
+        notes: values.notes,
+        cv: cvPath ?? cv,
+      },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
   }
 
   return (
@@ -222,6 +256,16 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
                 </FormItem>
               )}
             />
+
+            {cvUrl && (
+              <div className="flex items-center gap-2">
+                <Button variant="link" asChild>
+                  <a href={cvUrl} target="_blank" rel="noopener noreferrer">
+                    Download Current CV
+                  </a>
+                </Button>
+              </div>
+            )}
             <FormField
               control={form.control}
               name="cv"

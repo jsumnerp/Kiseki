@@ -2,7 +2,9 @@ package connect
 
 import (
 	"context"
+	"log"
 	"net/http"
+	"time"
 
 	"kiseki/api/v1"
 	"kiseki/api/v1/apiconnect"
@@ -29,6 +31,32 @@ func corsMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+// loggingMiddleware logs HTTP requests
+func loggingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+
+		// Create a custom response writer to capture status code
+		lrw := &loggingResponseWriter{ResponseWriter: w, statusCode: http.StatusOK}
+
+		next.ServeHTTP(lrw, r)
+
+		duration := time.Since(start)
+		log.Printf("%s %s %d %v", r.Method, r.URL.Path, lrw.statusCode, duration)
+	})
+}
+
+// loggingResponseWriter wraps http.ResponseWriter to capture status code
+type loggingResponseWriter struct {
+	http.ResponseWriter
+	statusCode int
+}
+
+func (lrw *loggingResponseWriter) WriteHeader(code int) {
+	lrw.statusCode = code
+	lrw.ResponseWriter.WriteHeader(code)
+}
+
 type handler struct {
 	service service.Service
 }
@@ -43,8 +71,9 @@ func NewServer(svc service.Service, jwtSecret []byte) *http.Server {
 
 	mux.Handle(path, handler)
 
-	// Wrap mux with CORS middleware
+	// Wrap mux with CORS and logging middleware
 	corsHandler := corsMiddleware(mux)
+	loggedHandler := loggingMiddleware(corsHandler)
 
 	p := new(http.Protocols)
 	p.SetHTTP1(true)
@@ -52,7 +81,7 @@ func NewServer(svc service.Service, jwtSecret []byte) *http.Server {
 
 	s := http.Server{
 		Addr:      "localhost:8080",
-		Handler:   corsHandler,
+		Handler:   loggedHandler,
 		Protocols: p,
 	}
 
