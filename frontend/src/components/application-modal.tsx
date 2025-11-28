@@ -32,6 +32,8 @@ import {
 } from "@/components/ui/form";
 import { useMutation, useQuery } from "@connectrpc/connect-query";
 import { createJobApplication } from "@/api/v1/api-Service_connectquery";
+import { supabase } from "@/lib/supabase";
+import { useAuthStore } from "@/stores/auth-store";
 
 interface ApplicationModalProps {
   jobApplication?: JobApplication;
@@ -61,6 +63,7 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
   const isNewApplication = !jobApplication;
 
   const mutation = useMutation(createJobApplication);
+  const user = useAuthStore((state) => state.user);
   const {
     createdAt,
     company,
@@ -89,17 +92,20 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
     },
   });
 
-  function arrayBufferToBase64(buffer: ArrayBuffer) {
-    let binary = "";
-    const bytes = new Uint8Array(buffer);
-    const len = bytes.byteLength;
-    for (let i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary);
-  }
-
   async function onSubmit(values: z.infer<typeof applicationFormSchema>) {
+    let cvPath: string | undefined;
+
+    // Upload file to Supabase Storage
+    if (values.cv) {
+      const fileName = `${crypto.randomUUID()}.pdf`;
+      const { data, error } = await supabase.storage
+        .from("resumes")
+        .upload(`${user?.id}/${fileName}`, values.cv);
+
+      if (error) throw error;
+      cvPath = data.path;
+    }
+
     console.log("Submitted values:", values);
     mutation.mutate({
       company: values.company,
@@ -109,9 +115,7 @@ export const ApplicationModal = ({ jobApplication }: ApplicationModalProps) => {
       coverLetter: values.coverLetter,
       appliedOn: timestampFromDate(new Date(values.appliedOn)),
       notes: values.notes,
-      cv: values.cv
-        ? arrayBufferToBase64(await values.cv.arrayBuffer())
-        : undefined,
+      cv: cvPath,
     });
   }
 

@@ -5,29 +5,18 @@ import { LoginForm } from "@/components/login-form";
 import { OTPForm } from "@/components/otp-form";
 import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
-import type { Session } from "@supabase/supabase-js";
 import { createConnectTransport } from "@connectrpc/connect-web";
 import { TransportProvider } from "@connectrpc/connect-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-const getSessionToken = (() => {
-  let cachedToken: string | null = null;
-
-  // Subscribe to auth state changes to update the cache
-  supabase.auth.onAuthStateChange((_event, session) => {
-    cachedToken = session?.access_token ?? null;
-  });
-
-  return () => cachedToken;
-})();
+import { useAuthStore } from "@/stores/auth-store";
 
 const finalTransport = createConnectTransport({
   baseUrl: import.meta.env.VITE_API_URL,
   interceptors: [
     (next) => async (req) => {
-      const token = getSessionToken();
-      if (token) {
-        req.header.set("Authorization", `Bearer ${token}`);
+      const { session } = useAuthStore.getState();
+      if (session?.access_token) {
+        req.header.set("Authorization", `Bearer ${session.access_token}`);
       }
       return next(req);
     },
@@ -39,25 +28,10 @@ const queryClient = new QueryClient();
 function App() {
   const [showOTP, setShowOTP] = useState(false);
   const [email, setEmail] = useState("");
-  const [session, setSession] = useState<Session | null>(null);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const session = useAuthStore((state) => state.session);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    setSession(null);
     setShowOTP(false);
   };
 
