@@ -47,6 +47,7 @@ func (s *service) CreateJobApplication(ctx context.Context, req *api.CreateJobAp
 		CV:          stringPtrFromValue(req.Cv),
 		CoverLetter: stringPtrFromValue(req.CoverLetter),
 		AppliedOn:   req.AppliedOn.AsTime(),
+		Status:      kiseki.JobApplicationStatus(req.Status),
 	})
 
 	if err := s.jobApplicationRepository.Save(ctx, &jobApplication); err != nil {
@@ -65,6 +66,7 @@ func (s *service) CreateJobApplication(ctx context.Context, req *api.CreateJobAp
 			CreatedAt:   timestamppb.New(jobApplication.CreatedAt),
 			UpdatedAt:   timestamppb.New(jobApplication.UpdatedAt),
 			AppliedOn:   timestamppb.New(jobApplication.AppliedOn),
+			Status:      api.JobApplicationStatus(jobApplication.Status),
 		},
 	}, nil
 }
@@ -122,6 +124,7 @@ func (s *service) ListJobApplications(ctx context.Context, req *api.ListJobAppli
 				CreatedAt:   timestamppb.New(ja.CreatedAt),
 				UpdatedAt:   timestamppb.New(ja.UpdatedAt),
 				AppliedOn:   timestamppb.New(ja.AppliedOn),
+				Status:      api.JobApplicationStatus(ja.Status),
 			}
 		}),
 	}, nil
@@ -155,6 +158,7 @@ func (s *service) UpdateJobApplication(ctx context.Context, req *api.UpdateJobAp
 		CV:          stringPtrFromValue(req.Cv),
 		CoverLetter: stringPtrFromValue(req.CoverLetter),
 		AppliedOn:   req.AppliedOn.AsTime(),
+		Status:      kiseki.JobApplicationStatus(req.Status),
 	})
 
 	if err := s.jobApplicationRepository.Save(ctx, ja); err != nil {
@@ -173,6 +177,7 @@ func (s *service) UpdateJobApplication(ctx context.Context, req *api.UpdateJobAp
 			CreatedAt:   timestamppb.New(ja.CreatedAt),
 			UpdatedAt:   timestamppb.New(ja.UpdatedAt),
 			AppliedOn:   timestamppb.New(ja.AppliedOn),
+			Status:      api.JobApplicationStatus(ja.Status),
 		},
 	}, nil
 }

@@ -46,6 +46,7 @@ func (r *jobApplicationRepository) Save(ctx context.Context, jobApplication *kis
 				"updated_at",
 				"deleted_at",
 				"applied_on",
+				"status",
 			).
 			Values(
 				jobApplication.ID,
@@ -60,6 +61,7 @@ func (r *jobApplicationRepository) Save(ctx context.Context, jobApplication *kis
 				jobApplication.UpdatedAt,
 				jobApplication.DeletedAt,
 				jobApplication.AppliedOn,
+				kiseki.StatusToDB(jobApplication.Status),
 			).
 			PlaceholderFormat(sq.Dollar).
 			ToSql()
@@ -82,6 +84,7 @@ func (r *jobApplicationRepository) Save(ctx context.Context, jobApplication *kis
 		Set("updated_at", jobApplication.UpdatedAt).
 		Set("deleted_at", jobApplication.DeletedAt).
 		Set("applied_on", jobApplication.AppliedOn).
+		Set("status", kiseki.StatusToDB(jobApplication.Status)).
 		Where(sq.Eq{"id": jobApplication.ID}).
 		PlaceholderFormat(sq.Dollar).
 		ToSql()
@@ -107,6 +110,7 @@ func (r *jobApplicationRepository) Find(ctx context.Context, id string) (*kiseki
 		"updated_at",
 		"deleted_at",
 		"applied_on",
+		"status",
 	).
 		From("job_applications").
 		Where(sq.Eq{"id": id}).
@@ -118,6 +122,7 @@ func (r *jobApplicationRepository) Find(ctx context.Context, id string) (*kiseki
 	}
 
 	var ja kiseki.JobApplication
+	var statusStr string
 	err = r.pool.QueryRow(ctx, query, args...).Scan(
 		&ja.ID,
 		&ja.UserID,
@@ -131,6 +136,7 @@ func (r *jobApplicationRepository) Find(ctx context.Context, id string) (*kiseki
 		&ja.UpdatedAt,
 		&ja.DeletedAt,
 		&ja.AppliedOn,
+		&statusStr,
 	)
 
 	if err == pgx.ErrNoRows {
@@ -140,6 +146,8 @@ func (r *jobApplicationRepository) Find(ctx context.Context, id string) (*kiseki
 	if err != nil {
 		return nil, err
 	}
+
+	ja.Status = kiseki.StatusFromDB(statusStr)
 
 	return &ja, nil
 }
@@ -158,6 +166,7 @@ func (r *jobApplicationRepository) List(ctx context.Context, userID string) ([]*
 		"updated_at",
 		"deleted_at",
 		"applied_on",
+		"status",
 	).
 		From("job_applications").
 		Where(sq.Eq{"user_id": userID}).
@@ -178,6 +187,7 @@ func (r *jobApplicationRepository) List(ctx context.Context, userID string) ([]*
 	var jobApplications []*kiseki.JobApplication
 	for rows.Next() {
 		var ja kiseki.JobApplication
+		var statusStr string
 		err := rows.Scan(
 			&ja.ID,
 			&ja.UserID,
@@ -191,10 +201,12 @@ func (r *jobApplicationRepository) List(ctx context.Context, userID string) ([]*
 			&ja.UpdatedAt,
 			&ja.DeletedAt,
 			&ja.AppliedOn,
+			&statusStr,
 		)
 		if err != nil {
 			return nil, err
 		}
+		ja.Status = kiseki.StatusFromDB(statusStr)
 		jobApplications = append(jobApplications, &ja)
 	}
 
