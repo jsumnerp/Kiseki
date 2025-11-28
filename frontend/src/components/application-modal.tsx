@@ -35,6 +35,7 @@ import { useAuthStore } from "@/stores/auth-store";
 import { useEffect, useState } from "react";
 import { useCreateJobApplication } from "@/hooks/useCreateJobApplication";
 import { useUpdateJobApplication } from "@/hooks/useUpdateJobApplication";
+import { useDeleteJobApplication } from "@/hooks/useDeleteJobApplication";
 
 interface ApplicationModalProps {
   jobApplication?: JobApplication;
@@ -69,6 +70,7 @@ export const ApplicationModal = ({
 
   const createJobApplicationMutation = useCreateJobApplication();
   const updateJobApplicationMutation = useUpdateJobApplication();
+  const deleteJobApplicationMutation = useDeleteJobApplication();
   const user = useAuthStore((state) => state.user);
   const [cvUrl, setCvUrl] = useState<string>();
 
@@ -145,6 +147,19 @@ export const ApplicationModal = ({
         notes: values.notes,
         cv: cvPath ?? cv,
       },
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      }
+    );
+  }
+
+  function handleDelete() {
+    if (!jobApplication) return;
+
+    deleteJobApplicationMutation.mutate(
+      { id: jobApplication.id },
       {
         onSuccess: () => {
           onClose();
@@ -321,6 +336,15 @@ export const ApplicationModal = ({
             />
           </div>
           <DialogFooter>
+            {!isNewApplication && (
+              <Button
+                type="button"
+                variant="destructive"
+                onClick={handleDelete}
+              >
+                Delete
+              </Button>
+            )}
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
