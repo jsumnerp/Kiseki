@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 export interface KanbanCardProps {
   title: string;
   company: string;
-  createdAt: Timestamp;
+  appliedOn: Timestamp;
   color: string;
   onClick?: () => void;
   ariaLabel?: string;
@@ -14,7 +14,7 @@ export interface KanbanCardProps {
 export const KanbanCard = ({
   title,
   company,
-  createdAt,
+  appliedOn,
   color,
   onClick,
   ariaLabel,
@@ -38,7 +38,7 @@ export const KanbanCard = ({
           <p className="text-xs text-secondary-foreground text-wrap">{title}</p>
         </CardContent>
         <CardFooter className="text-xs px-2 py-0 pb-2 text-muted-foreground flex items-center justify-between">
-          <span>Applied: {timestampDate(createdAt).toLocaleDateString()}</span>
+          <span>Applied: {timestampDate(appliedOn).toLocaleDateString()}</span>
         </CardFooter>
       </Card>
     </Button>
