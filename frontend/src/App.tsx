@@ -10,8 +10,28 @@ import { createConnectTransport } from "@connectrpc/connect-web";
 import { TransportProvider } from "@connectrpc/connect-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const getSessionToken = (() => {
+  let cachedToken: string | null = null;
+
+  // Subscribe to auth state changes to update the cache
+  supabase.auth.onAuthStateChange((_event, session) => {
+    cachedToken = session?.access_token ?? null;
+  });
+
+  return () => cachedToken;
+})();
+
 const finalTransport = createConnectTransport({
-  baseUrl: import.meta.env.VITE_SUPABASE_URL,
+  baseUrl: import.meta.env.VITE_API_URL,
+  interceptors: [
+    (next) => async (req) => {
+      const token = getSessionToken();
+      if (token) {
+        req.header.set("Authorization", `Bearer ${token}`);
+      }
+      return next(req);
+    },
+  ],
 });
 
 const queryClient = new QueryClient();

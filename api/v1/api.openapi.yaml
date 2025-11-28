@@ -180,6 +180,9 @@ components:
         appliedOn:
           title: applied_on
           $ref: '#/components/schemas/google.protobuf.Timestamp'
+        status:
+          title: status
+          $ref: '#/components/schemas/api.v1.JobApplicationStatus'
       title: CreateJobApplicationRequest
       additionalProperties: false
     api.v1.CreateJobApplicationResponse:

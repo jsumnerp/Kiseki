@@ -12,6 +12,23 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
+// corsMiddleware adds CORS headers to allow cross-origin requests from the frontend
+func corsMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "*")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
+
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
 type handler struct {
 	service service.Service
 }
@@ -26,13 +43,16 @@ func NewServer(svc service.Service, jwtSecret []byte) *http.Server {
 
 	mux.Handle(path, handler)
 
+	// Wrap mux with CORS middleware
+	corsHandler := corsMiddleware(mux)
+
 	p := new(http.Protocols)
 	p.SetHTTP1(true)
 	p.SetUnencryptedHTTP2(true)
 
 	s := http.Server{
 		Addr:      "localhost:8080",
-		Handler:   mux,
+		Handler:   corsHandler,
 		Protocols: p,
 	}
 

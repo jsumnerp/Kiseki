@@ -15,6 +15,7 @@ message CreateJobApplicationRequest {
   google.protobuf.StringValue cv = 5;
   google.protobuf.StringValue cover_letter = 6;
   google.protobuf.Timestamp applied_on = 7;
+  JobApplicationStatus status = 8;
 }
 
 message CreateJobApplicationResponse {
