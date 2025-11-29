@@ -39,9 +39,8 @@ type NewJobApplicationParams struct {
 
 func NewJobApplication(params NewJobApplicationParams) JobApplication {
 	now := time.Now()
-	id, _ := uuid.NewV7()
 	return JobApplication{
-		ID:          id.String(),
+		ID:          uuid.New().String(),
 		UserID:      params.UserID,
 		Company:     params.Company,
 		Title:       params.Title,

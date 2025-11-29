@@ -63,7 +63,7 @@ export const KanbanColumn = ({
       },
       getData: () => ({ status }),
     });
-  }, [status, onDrop, applicationsForStatus]);
+  }, [status, onDrop]);
 
   return (
     <div

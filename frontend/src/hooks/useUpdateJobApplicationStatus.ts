@@ -26,6 +26,7 @@ export function useUpdateJobApplicationStatus() {
                   ...app,
                   status: statusUpdate.status,
                   updatedAt: timestampFromDate(new Date()),
+                  position: statusUpdate.position ?? undefined,
                 }
               : app
           ),

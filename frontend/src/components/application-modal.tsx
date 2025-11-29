@@ -141,13 +141,13 @@ export const ApplicationModal = ({
     const [year, month, day] = values.appliedOn.split("-").map(Number);
 
     // Calculate position for new applications or when status changes
-    let position = jobApplication?.position;
     const statusChanged =
       !isNewApplication && jobApplication.status !== values.status;
 
-    if (isNewApplication || statusChanged) {
-      position = calculatePositionAtEnd(jobApplications, values.status);
-    }
+    const position =
+      isNewApplication || statusChanged || !jobApplication?.position
+        ? calculatePositionAtEnd(jobApplications, values.status)
+        : jobApplication.position;
 
     mutation.mutate(
       {
