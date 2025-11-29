@@ -142,6 +142,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.v1.DeleteJobApplicationResponse'
+  /api.v1.Service/UpdateJobApplicationStatus:
+    post:
+      tags:
+        - api.v1.Service
+      summary: UpdateJobApplicationStatus
+      operationId: api.v1.Service.UpdateJobApplicationStatus
+      parameters:
+        - name: Connect-Protocol-Version
+          in: header
+          required: true
+          schema:
+            $ref: '#/components/schemas/connect-protocol-version'
+        - name: Connect-Timeout-Ms
+          in: header
+          schema:
+            $ref: '#/components/schemas/connect-timeout-header'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.v1.UpdateJobApplicationStatusRequest'
+        required: true
+      responses:
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connect.error'
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.v1.UpdateJobApplicationStatusResponse'
 components:
   schemas:
     api.v1.JobApplicationStatus:
@@ -183,6 +218,9 @@ components:
         status:
           title: status
           $ref: '#/components/schemas/api.v1.JobApplicationStatus'
+        position:
+          type: string
+          title: position
       title: CreateJobApplicationRequest
       additionalProperties: false
     api.v1.CreateJobApplicationResponse:
@@ -241,6 +279,9 @@ components:
         updatedAt:
           title: updated_at
           $ref: '#/components/schemas/google.protobuf.Timestamp'
+        position:
+          type: string
+          title: position
       title: JobApplication
       additionalProperties: false
     api.v1.ListJobApplicationsRequest:
@@ -287,6 +328,9 @@ components:
         appliedOn:
           title: applied_on
           $ref: '#/components/schemas/google.protobuf.Timestamp'
+        position:
+          type: string
+          title: position
       title: UpdateJobApplicationRequest
       additionalProperties: false
     api.v1.UpdateJobApplicationResponse:
@@ -296,6 +340,28 @@ components:
           title: job_application
           $ref: '#/components/schemas/api.v1.JobApplication'
       title: UpdateJobApplicationResponse
+      additionalProperties: false
+    api.v1.UpdateJobApplicationStatusRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          title: id
+        status:
+          title: status
+          $ref: '#/components/schemas/api.v1.JobApplicationStatus'
+        position:
+          title: position
+          $ref: '#/components/schemas/google.protobuf.StringValue'
+      title: UpdateJobApplicationStatusRequest
+      additionalProperties: false
+    api.v1.UpdateJobApplicationStatusResponse:
+      type: object
+      properties:
+        jobApplication:
+          title: job_application
+          $ref: '#/components/schemas/api.v1.JobApplication'
+      title: UpdateJobApplicationStatusResponse
       additionalProperties: false
     google.protobuf.StringValue:
       type: string

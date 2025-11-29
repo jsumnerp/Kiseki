@@ -23,3 +23,8 @@ export const updateJobApplication = Service.method.updateJobApplication;
  * @generated from rpc api.v1.Service.DeleteJobApplication
  */
 export const deleteJobApplication = Service.method.deleteJobApplication;
+
+/**
+ * @generated from rpc api.v1.Service.UpdateJobApplicationStatus
+ */
+export const updateJobApplicationStatus = Service.method.updateJobApplicationStatus;

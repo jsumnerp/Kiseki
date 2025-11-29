@@ -36,9 +36,11 @@ import { useEffect, useState } from "react";
 import { useCreateJobApplication } from "@/hooks/useCreateJobApplication";
 import { useUpdateJobApplication } from "@/hooks/useUpdateJobApplication";
 import { useDeleteJobApplication } from "@/hooks/useDeleteJobApplication";
+import { calculatePositionAtEnd } from "@/lib/application-sorting";
 
 interface ApplicationModalProps {
   jobApplication?: JobApplication;
+  jobApplications?: JobApplication[];
   onClose: () => void;
 }
 
@@ -64,6 +66,7 @@ const applicationFormSchema = z.object({
 
 export const ApplicationModal = ({
   jobApplication,
+  jobApplications = [],
   onClose,
 }: ApplicationModalProps) => {
   const isNewApplication = !jobApplication;
@@ -135,6 +138,17 @@ export const ApplicationModal = ({
       ? createJobApplicationMutation
       : updateJobApplicationMutation;
 
+    const [year, month, day] = values.appliedOn.split("-").map(Number);
+
+    // Calculate position for new applications or when status changes
+    let position = jobApplication?.position;
+    const statusChanged =
+      !isNewApplication && jobApplication.status !== values.status;
+
+    if (isNewApplication || statusChanged) {
+      position = calculatePositionAtEnd(jobApplications, values.status);
+    }
+
     mutation.mutate(
       {
         ...(isNewApplication ? {} : { id: jobApplication.id }),
@@ -143,9 +157,10 @@ export const ApplicationModal = ({
         status: values.status,
         description: values.description,
         coverLetter: values.coverLetter,
-        appliedOn: timestampFromDate(new Date(values.appliedOn)),
+        appliedOn: timestampFromDate(new Date(Date.UTC(year, month - 1, day))),
         notes: values.notes,
         cv: cvPath ?? cv,
+        position,
       },
       {
         onSuccess: () => {
