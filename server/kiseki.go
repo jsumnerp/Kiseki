@@ -21,6 +21,7 @@ type JobApplication struct {
 	DeletedAt   *time.Time
 	AppliedOn   time.Time
 	Status      JobApplicationStatus
+	Position    string
 }
 
 type NewJobApplicationParams struct {
@@ -33,9 +34,11 @@ type NewJobApplicationParams struct {
 	CoverLetter *string
 	AppliedOn   time.Time
 	Status      JobApplicationStatus
+	Position    string
 }
 
 func NewJobApplication(params NewJobApplicationParams) JobApplication {
+	now := time.Now()
 	return JobApplication{
 		ID:          uuid.New().String(),
 		UserID:      params.UserID,
@@ -45,8 +48,11 @@ func NewJobApplication(params NewJobApplicationParams) JobApplication {
 		Notes:       params.Notes,
 		CV:          params.CV,
 		CoverLetter: params.CoverLetter,
+		CreatedAt:   now,
+		UpdatedAt:   now,
 		AppliedOn:   params.AppliedOn,
 		Status:      params.Status,
+		Position:    params.Position,
 	}
 }
 
@@ -64,6 +70,7 @@ type UpdateJobApplicationParams struct {
 	CoverLetter *string
 	AppliedOn   time.Time
 	Status      JobApplicationStatus
+	Position    string
 }
 
 func (j *JobApplication) Update(params UpdateJobApplicationParams) {
@@ -78,6 +85,7 @@ func (j *JobApplication) Update(params UpdateJobApplicationParams) {
 	j.CoverLetter = params.CoverLetter
 	j.AppliedOn = params.AppliedOn
 	j.Status = params.Status
+	j.Position = params.Position
 }
 
 // JobApplicationStatus is the domain enum for job application status.

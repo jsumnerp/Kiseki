@@ -1,15 +1,13 @@
-import { JobApplicationStatus } from "@/api/v1/api_pb";
-import { KanbanCard } from "@/components/kanban-card";
+import { JobApplicationStatus, type JobApplication } from "@/api/v1/api_pb";
+import { KanbanColumn } from "@/components/kanban-column";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { ApplicationModal } from "@/components/application-modal";
+import { STATUSES } from "@/constants/job-application-statuses";
+import { useUpdateJobApplicationStatus } from "@/hooks/useUpdateJobApplicationStatus";
 import {
-  JobApplicationStatusNames,
-  STATUSES,
-} from "@/constants/job-application-statuses";
-import { useQuery } from "@connectrpc/connect-query";
-import { listJobApplications } from "@/api/v1/api-Service_connectquery";
-import { useState } from "react";
+  calculatePositionAtEnd,
+  calculatePositionAtIndex,
+  getSortedApplicationsByStatus,
+} from "@/lib/application-sorting";
 
 const ColumnColors: Partial<{ [key in JobApplicationStatus]: string }> = {
   [JobApplicationStatus.APPLIED]: "bg-gray-900 dark:bg-gray-100",
@@ -21,45 +19,82 @@ const ColumnColors: Partial<{ [key in JobApplicationStatus]: string }> = {
   [JobApplicationStatus.SCREENING]: "bg-blue-900 dark:bg-blue-100",
 };
 
-export const Kanban = () => {
-  const { data } = useQuery(listJobApplications, {});
-  const [openDialogId, setOpenDialogId] = useState<string | null>(null);
+interface KanbanProps {
+  jobApplications: JobApplication[];
+}
+
+export const Kanban = ({ jobApplications }: KanbanProps) => {
+  const updateStatusMutation = useUpdateJobApplicationStatus();
+
+  const handleDrop = (
+    jobApplicationId: string,
+    newStatus: JobApplicationStatus,
+    targetIndex?: number
+  ) => {
+    const draggedCard = jobApplications.find(
+      (app) => app.id === jobApplicationId
+    );
+    if (!draggedCard) return;
+
+    // Adjust targetIndex when moving within the same column
+    let adjustedTargetIndex = targetIndex;
+    if (draggedCard.status === newStatus && targetIndex !== undefined) {
+      const currentColumnApps = getSortedApplicationsByStatus(
+        jobApplications,
+        newStatus
+      );
+      const currentIndex = currentColumnApps.findIndex(
+        (app) => app.id === jobApplicationId
+      );
+
+      // After filtering out the dragged card, if the target is after the current position,
+      // we need to adjust by -1 because indices shift
+      if (targetIndex > currentIndex) {
+        adjustedTargetIndex = targetIndex - 1;
+      } else {
+        adjustedTargetIndex = targetIndex;
+      }
+
+      // If the adjusted position equals current, do nothing
+      if (currentIndex === adjustedTargetIndex) return;
+    }
+
+    // Filter out the dragged card to get accurate index calculation
+    const filteredApplications = jobApplications.filter(
+      (app) => app.id !== jobApplicationId
+    );
+
+    const newPosition =
+      adjustedTargetIndex !== undefined
+        ? calculatePositionAtIndex(
+            filteredApplications,
+            newStatus,
+            adjustedTargetIndex
+          )
+        : calculatePositionAtEnd(filteredApplications, newStatus);
+
+    updateStatusMutation.mutate({
+      id: jobApplicationId,
+      status: newStatus,
+      position: newPosition,
+    });
+  };
 
   function renderColumn(status: JobApplicationStatus) {
-    const applications = data?.jobApplications.filter(
-      (app) => app.status === status
+    const applicationsForStatus = getSortedApplicationsByStatus(
+      jobApplications,
+      status
     );
 
     return (
-      <div
+      <KanbanColumn
         key={status}
-        className="bg-accent py-4 px-2 flex flex-col gap-2 rounded-xl"
-      >
-        <h2 className="text-md font-semibold text-left mb-4">
-          {JobApplicationStatusNames[status]} ({applications?.length ?? 0})
-        </h2>
-        {applications?.map((job) => (
-          <Dialog
-            key={job.id}
-            open={openDialogId === job.id}
-            onOpenChange={(open) => setOpenDialogId(open ? job.id : null)}
-          >
-            <DialogTrigger asChild>
-              <KanbanCard
-                title={job.title}
-                company={job.company}
-                appliedOn={job.appliedOn!}
-                color={ColumnColors[status]!}
-              />
-            </DialogTrigger>
-
-            <ApplicationModal
-              jobApplication={job}
-              onClose={() => setOpenDialogId(null)}
-            />
-          </Dialog>
-        ))}
-      </div>
+        status={status}
+        applicationsForStatus={applicationsForStatus}
+        allApplications={jobApplications}
+        color={ColumnColors[status]!}
+        onDrop={handleDrop}
+      />
     );
   }
 

@@ -47,6 +47,7 @@ func (r *jobApplicationRepository) Save(ctx context.Context, jobApplication *kis
 				"deleted_at",
 				"applied_on",
 				"status",
+				"position",
 			).
 			Values(
 				jobApplication.ID,
@@ -62,6 +63,7 @@ func (r *jobApplicationRepository) Save(ctx context.Context, jobApplication *kis
 				jobApplication.DeletedAt,
 				jobApplication.AppliedOn,
 				kiseki.StatusToDB(jobApplication.Status),
+				jobApplication.Position,
 			).
 			PlaceholderFormat(sq.Dollar).
 			ToSql()
@@ -85,6 +87,7 @@ func (r *jobApplicationRepository) Save(ctx context.Context, jobApplication *kis
 		Set("deleted_at", jobApplication.DeletedAt).
 		Set("applied_on", jobApplication.AppliedOn).
 		Set("status", kiseki.StatusToDB(jobApplication.Status)).
+		Set("position", jobApplication.Position).
 		Where(sq.Eq{"id": jobApplication.ID}).
 		PlaceholderFormat(sq.Dollar).
 		ToSql()
@@ -111,6 +114,7 @@ func (r *jobApplicationRepository) Find(ctx context.Context, id string) (*kiseki
 		"deleted_at",
 		"applied_on",
 		"status",
+		"position",
 	).
 		From("job_applications").
 		Where(sq.Eq{"id": id}).
@@ -137,6 +141,7 @@ func (r *jobApplicationRepository) Find(ctx context.Context, id string) (*kiseki
 		&ja.DeletedAt,
 		&ja.AppliedOn,
 		&statusStr,
+		&ja.Position,
 	)
 
 	if err == pgx.ErrNoRows {
@@ -167,11 +172,12 @@ func (r *jobApplicationRepository) List(ctx context.Context, userID string) ([]*
 		"deleted_at",
 		"applied_on",
 		"status",
+		"position",
 	).
 		From("job_applications").
 		Where(sq.Eq{"user_id": userID}).
 		Where(sq.Eq{"deleted_at": nil}).
-		OrderBy("created_at DESC").
+		OrderBy("status ASC, position ASC").
 		PlaceholderFormat(sq.Dollar).
 		ToSql()
 	if err != nil {
@@ -202,6 +208,7 @@ func (r *jobApplicationRepository) List(ctx context.Context, userID string) ([]*
 			&ja.DeletedAt,
 			&ja.AppliedOn,
 			&statusStr,
+			&ja.Position,
 		)
 		if err != nil {
 			return nil, err

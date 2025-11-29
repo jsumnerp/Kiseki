@@ -16,6 +16,7 @@ message CreateJobApplicationRequest {
   google.protobuf.StringValue cover_letter = 6;
   google.protobuf.Timestamp applied_on = 7;
   JobApplicationStatus status = 8;
+  string position = 9;
 }
 
 message CreateJobApplicationResponse {
@@ -38,6 +39,7 @@ message UpdateJobApplicationRequest {
   google.protobuf.StringValue cover_letter = 7;
   JobApplicationStatus status = 8;
   google.protobuf.Timestamp applied_on = 9;
+  string position = 10;
 }
 
 message UpdateJobApplicationResponse {
@@ -74,6 +76,17 @@ message JobApplication {
   google.protobuf.Timestamp applied_on = 9;
   google.protobuf.Timestamp created_at = 10;
   google.protobuf.Timestamp updated_at = 11;
+  string position = 12;
+}
+
+message UpdateJobApplicationStatusRequest {
+  string id = 1;
+  JobApplicationStatus status = 2;
+  google.protobuf.StringValue position = 3;
+}
+
+message UpdateJobApplicationStatusResponse {
+  JobApplication job_application = 1;
 }
 
 service Service {
@@ -81,5 +94,6 @@ service Service {
   rpc ListJobApplications(ListJobApplicationsRequest) returns (ListJobApplicationsResponse);
   rpc UpdateJobApplication(UpdateJobApplicationRequest) returns (UpdateJobApplicationResponse);
   rpc DeleteJobApplication(DeleteJobApplicationRequest) returns (DeleteJobApplicationResponse);
+  rpc UpdateJobApplicationStatus(UpdateJobApplicationStatusRequest) returns (UpdateJobApplicationStatusResponse);
 }
 

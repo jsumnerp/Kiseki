@@ -123,3 +123,12 @@ func (h *handler) UpdateJobApplication(ctx context.Context, req *connect.Request
 	}
 	return connect.NewResponse(res), nil
 }
+
+// UpdateJobApplicationStatus implements apiconnect.ServiceHandler.
+func (h *handler) UpdateJobApplicationStatus(ctx context.Context, req *connect.Request[api.UpdateJobApplicationStatusRequest]) (*connect.Response[api.UpdateJobApplicationStatusResponse], error) {
+	res, err := h.service.UpdateJobApplicationStatus(ctx, req.Msg)
+	if err != nil {
+		return nil, err
+	}
+	return connect.NewResponse(res), nil
+}

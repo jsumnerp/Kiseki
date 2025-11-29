@@ -12,7 +12,7 @@ import type { Message } from "@bufbuild/protobuf";
  * Describes the file api/v1/api.proto.
  */
 export const file_api_v1_api: GenFile = /*@__PURE__*/
-  fileDesc("ChBhcGkvdjEvYXBpLnByb3RvEgZhcGkudjEi2QIKG0NyZWF0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBIPCgdjb21wYW55GAEgASgJEg0KBXRpdGxlGAIgASgJEjEKC2Rlc2NyaXB0aW9uGAMgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEisKBW5vdGVzGAQgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEigKAmN2GAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjIKDGNvdmVyX2xldHRlchgGIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRIuCgphcHBsaWVkX29uGAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIsCgZzdGF0dXMYCCABKA4yHC5hcGkudjEuSm9iQXBwbGljYXRpb25TdGF0dXMiTwocQ3JlYXRlSm9iQXBwbGljYXRpb25SZXNwb25zZRIvCg9qb2JfYXBwbGljYXRpb24YASABKAsyFi5hcGkudjEuSm9iQXBwbGljYXRpb24iHAoaTGlzdEpvYkFwcGxpY2F0aW9uc1JlcXVlc3QiTwobTGlzdEpvYkFwcGxpY2F0aW9uc1Jlc3BvbnNlEjAKEGpvYl9hcHBsaWNhdGlvbnMYASADKAsyFi5hcGkudjEuSm9iQXBwbGljYXRpb24i5QIKG1VwZGF0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBIKCgJpZBgBIAEoCRIPCgdjb21wYW55GAIgASgJEg0KBXRpdGxlGAMgASgJEjEKC2Rlc2NyaXB0aW9uGAQgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEisKBW5vdGVzGAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEigKAmN2GAYgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjIKDGNvdmVyX2xldHRlchgHIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRIsCgZzdGF0dXMYCCABKA4yHC5hcGkudjEuSm9iQXBwbGljYXRpb25TdGF0dXMSLgoKYXBwbGllZF9vbhgJIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiTwocVXBkYXRlSm9iQXBwbGljYXRpb25SZXNwb25zZRIvCg9qb2JfYXBwbGljYXRpb24YASABKAsyFi5hcGkudjEuSm9iQXBwbGljYXRpb24iKQobRGVsZXRlSm9iQXBwbGljYXRpb25SZXF1ZXN0EgoKAmlkGAEgASgJIh4KHERlbGV0ZUpvYkFwcGxpY2F0aW9uUmVzcG9uc2UiuAMKDkpvYkFwcGxpY2F0aW9uEgoKAmlkGAEgASgJEg8KB2NvbXBhbnkYAiABKAkSDQoFdGl0bGUYAyABKAkSLAoGc3RhdHVzGAQgASgOMhwuYXBpLnYxLkpvYkFwcGxpY2F0aW9uU3RhdHVzEjEKC2Rlc2NyaXB0aW9uGAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEisKBW5vdGVzGAYgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEigKAmN2GAcgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjIKDGNvdmVyX2xldHRlchgIIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRIuCgphcHBsaWVkX29uGAkgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgpjcmVhdGVkX2F0GAogASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgp1cGRhdGVkX2F0GAsgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCrAAgoUSm9iQXBwbGljYXRpb25TdGF0dXMSJgoiSk9CX0FQUExJQ0FUSU9OX1NUQVRVU19VTlNQRUNJRklFRBAAEiIKHkpPQl9BUFBMSUNBVElPTl9TVEFUVVNfQVBQTElFRBABEiQKIEpPQl9BUFBMSUNBVElPTl9TVEFUVVNfU0NSRUVOSU5HEAISJAogSk9CX0FQUExJQ0FUSU9OX1NUQVRVU19JTlRFUlZJRVcQAxIgChxKT0JfQVBQTElDQVRJT05fU1RBVFVTX09GRkVSEAQSIwofSk9CX0FQUExJQ0FUSU9OX1NUQVRVU19SRUpFQ1RFRBAFEiQKIEpPQl9BUFBMSUNBVElPTl9TVEFUVVNfV0lUSERSQVdOEAYSIwofSk9CX0FQUExJQ0FUSU9OX1NUQVRVU19BQ0NFUFRFRBAHMpIDCgdTZXJ2aWNlEmEKFENyZWF0ZUpvYkFwcGxpY2F0aW9uEiMuYXBpLnYxLkNyZWF0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBokLmFwaS52MS5DcmVhdGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlEl4KE0xpc3RKb2JBcHBsaWNhdGlvbnMSIi5hcGkudjEuTGlzdEpvYkFwcGxpY2F0aW9uc1JlcXVlc3QaIy5hcGkudjEuTGlzdEpvYkFwcGxpY2F0aW9uc1Jlc3BvbnNlEmEKFFVwZGF0ZUpvYkFwcGxpY2F0aW9uEiMuYXBpLnYxLlVwZGF0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBokLmFwaS52MS5VcGRhdGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlEmEKFERlbGV0ZUpvYkFwcGxpY2F0aW9uEiMuYXBpLnYxLkRlbGV0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBokLmFwaS52MS5EZWxldGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlQhNaEWtpc2VraS9hcGkvdjE7YXBpYgZwcm90bzM", [file_google_protobuf_timestamp, file_google_protobuf_wrappers]);
+  fileDesc("ChBhcGkvdjEvYXBpLnByb3RvEgZhcGkudjEi6wIKG0NyZWF0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBIPCgdjb21wYW55GAEgASgJEg0KBXRpdGxlGAIgASgJEjEKC2Rlc2NyaXB0aW9uGAMgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEisKBW5vdGVzGAQgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEigKAmN2GAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjIKDGNvdmVyX2xldHRlchgGIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRIuCgphcHBsaWVkX29uGAcgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIsCgZzdGF0dXMYCCABKA4yHC5hcGkudjEuSm9iQXBwbGljYXRpb25TdGF0dXMSEAoIcG9zaXRpb24YCSABKAkiTwocQ3JlYXRlSm9iQXBwbGljYXRpb25SZXNwb25zZRIvCg9qb2JfYXBwbGljYXRpb24YASABKAsyFi5hcGkudjEuSm9iQXBwbGljYXRpb24iHAoaTGlzdEpvYkFwcGxpY2F0aW9uc1JlcXVlc3QiTwobTGlzdEpvYkFwcGxpY2F0aW9uc1Jlc3BvbnNlEjAKEGpvYl9hcHBsaWNhdGlvbnMYASADKAsyFi5hcGkudjEuSm9iQXBwbGljYXRpb24i9wIKG1VwZGF0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBIKCgJpZBgBIAEoCRIPCgdjb21wYW55GAIgASgJEg0KBXRpdGxlGAMgASgJEjEKC2Rlc2NyaXB0aW9uGAQgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEisKBW5vdGVzGAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEigKAmN2GAYgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjIKDGNvdmVyX2xldHRlchgHIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRIsCgZzdGF0dXMYCCABKA4yHC5hcGkudjEuSm9iQXBwbGljYXRpb25TdGF0dXMSLgoKYXBwbGllZF9vbhgJIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXASEAoIcG9zaXRpb24YCiABKAkiTwocVXBkYXRlSm9iQXBwbGljYXRpb25SZXNwb25zZRIvCg9qb2JfYXBwbGljYXRpb24YASABKAsyFi5hcGkudjEuSm9iQXBwbGljYXRpb24iKQobRGVsZXRlSm9iQXBwbGljYXRpb25SZXF1ZXN0EgoKAmlkGAEgASgJIh4KHERlbGV0ZUpvYkFwcGxpY2F0aW9uUmVzcG9uc2UiygMKDkpvYkFwcGxpY2F0aW9uEgoKAmlkGAEgASgJEg8KB2NvbXBhbnkYAiABKAkSDQoFdGl0bGUYAyABKAkSLAoGc3RhdHVzGAQgASgOMhwuYXBpLnYxLkpvYkFwcGxpY2F0aW9uU3RhdHVzEjEKC2Rlc2NyaXB0aW9uGAUgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEisKBW5vdGVzGAYgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEigKAmN2GAcgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1ZhbHVlEjIKDGNvdmVyX2xldHRlchgIIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZRIuCgphcHBsaWVkX29uGAkgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgpjcmVhdGVkX2F0GAogASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIuCgp1cGRhdGVkX2F0GAsgASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcBIQCghwb3NpdGlvbhgMIAEoCSKNAQohVXBkYXRlSm9iQXBwbGljYXRpb25TdGF0dXNSZXF1ZXN0EgoKAmlkGAEgASgJEiwKBnN0YXR1cxgCIAEoDjIcLmFwaS52MS5Kb2JBcHBsaWNhdGlvblN0YXR1cxIuCghwb3NpdGlvbhgDIAEoCzIcLmdvb2dsZS5wcm90b2J1Zi5TdHJpbmdWYWx1ZSJVCiJVcGRhdGVKb2JBcHBsaWNhdGlvblN0YXR1c1Jlc3BvbnNlEi8KD2pvYl9hcHBsaWNhdGlvbhgBIAEoCzIWLmFwaS52MS5Kb2JBcHBsaWNhdGlvbirAAgoUSm9iQXBwbGljYXRpb25TdGF0dXMSJgoiSk9CX0FQUExJQ0FUSU9OX1NUQVRVU19VTlNQRUNJRklFRBAAEiIKHkpPQl9BUFBMSUNBVElPTl9TVEFUVVNfQVBQTElFRBABEiQKIEpPQl9BUFBMSUNBVElPTl9TVEFUVVNfU0NSRUVOSU5HEAISJAogSk9CX0FQUExJQ0FUSU9OX1NUQVRVU19JTlRFUlZJRVcQAxIgChxKT0JfQVBQTElDQVRJT05fU1RBVFVTX09GRkVSEAQSIwofSk9CX0FQUExJQ0FUSU9OX1NUQVRVU19SRUpFQ1RFRBAFEiQKIEpPQl9BUFBMSUNBVElPTl9TVEFUVVNfV0lUSERSQVdOEAYSIwofSk9CX0FQUExJQ0FUSU9OX1NUQVRVU19BQ0NFUFRFRBAHMocECgdTZXJ2aWNlEmEKFENyZWF0ZUpvYkFwcGxpY2F0aW9uEiMuYXBpLnYxLkNyZWF0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBokLmFwaS52MS5DcmVhdGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlEl4KE0xpc3RKb2JBcHBsaWNhdGlvbnMSIi5hcGkudjEuTGlzdEpvYkFwcGxpY2F0aW9uc1JlcXVlc3QaIy5hcGkudjEuTGlzdEpvYkFwcGxpY2F0aW9uc1Jlc3BvbnNlEmEKFFVwZGF0ZUpvYkFwcGxpY2F0aW9uEiMuYXBpLnYxLlVwZGF0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBokLmFwaS52MS5VcGRhdGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlEmEKFERlbGV0ZUpvYkFwcGxpY2F0aW9uEiMuYXBpLnYxLkRlbGV0ZUpvYkFwcGxpY2F0aW9uUmVxdWVzdBokLmFwaS52MS5EZWxldGVKb2JBcHBsaWNhdGlvblJlc3BvbnNlEnMKGlVwZGF0ZUpvYkFwcGxpY2F0aW9uU3RhdHVzEikuYXBpLnYxLlVwZGF0ZUpvYkFwcGxpY2F0aW9uU3RhdHVzUmVxdWVzdBoqLmFwaS52MS5VcGRhdGVKb2JBcHBsaWNhdGlvblN0YXR1c1Jlc3BvbnNlQhNaEWtpc2VraS9hcGkvdjE7YXBpYgZwcm90bzM", [file_google_protobuf_timestamp, file_google_protobuf_wrappers]);
 
 /**
  * @generated from message api.v1.CreateJobApplicationRequest
@@ -57,6 +57,11 @@ export type CreateJobApplicationRequest = Message<"api.v1.CreateJobApplicationRe
    * @generated from field: api.v1.JobApplicationStatus status = 8;
    */
   status: JobApplicationStatus;
+
+  /**
+   * @generated from field: string position = 9;
+   */
+  position: string;
 };
 
 /**
@@ -161,6 +166,11 @@ export type UpdateJobApplicationRequest = Message<"api.v1.UpdateJobApplicationRe
    * @generated from field: google.protobuf.Timestamp applied_on = 9;
    */
   appliedOn?: Timestamp;
+
+  /**
+   * @generated from field: string position = 10;
+   */
+  position: string;
 };
 
 /**
@@ -275,6 +285,11 @@ export type JobApplication = Message<"api.v1.JobApplication"> & {
    * @generated from field: google.protobuf.Timestamp updated_at = 11;
    */
   updatedAt?: Timestamp;
+
+  /**
+   * @generated from field: string position = 12;
+   */
+  position: string;
 };
 
 /**
@@ -283,6 +298,50 @@ export type JobApplication = Message<"api.v1.JobApplication"> & {
  */
 export const JobApplicationSchema: GenMessage<JobApplication> = /*@__PURE__*/
   messageDesc(file_api_v1_api, 8);
+
+/**
+ * @generated from message api.v1.UpdateJobApplicationStatusRequest
+ */
+export type UpdateJobApplicationStatusRequest = Message<"api.v1.UpdateJobApplicationStatusRequest"> & {
+  /**
+   * @generated from field: string id = 1;
+   */
+  id: string;
+
+  /**
+   * @generated from field: api.v1.JobApplicationStatus status = 2;
+   */
+  status: JobApplicationStatus;
+
+  /**
+   * @generated from field: google.protobuf.StringValue position = 3;
+   */
+  position?: string;
+};
+
+/**
+ * Describes the message api.v1.UpdateJobApplicationStatusRequest.
+ * Use `create(UpdateJobApplicationStatusRequestSchema)` to create a new message.
+ */
+export const UpdateJobApplicationStatusRequestSchema: GenMessage<UpdateJobApplicationStatusRequest> = /*@__PURE__*/
+  messageDesc(file_api_v1_api, 9);
+
+/**
+ * @generated from message api.v1.UpdateJobApplicationStatusResponse
+ */
+export type UpdateJobApplicationStatusResponse = Message<"api.v1.UpdateJobApplicationStatusResponse"> & {
+  /**
+   * @generated from field: api.v1.JobApplication job_application = 1;
+   */
+  jobApplication?: JobApplication;
+};
+
+/**
+ * Describes the message api.v1.UpdateJobApplicationStatusResponse.
+ * Use `create(UpdateJobApplicationStatusResponseSchema)` to create a new message.
+ */
+export const UpdateJobApplicationStatusResponseSchema: GenMessage<UpdateJobApplicationStatusResponse> = /*@__PURE__*/
+  messageDesc(file_api_v1_api, 10);
 
 /**
  * @generated from enum api.v1.JobApplicationStatus
@@ -370,6 +429,14 @@ export const Service: GenService<{
     methodKind: "unary";
     input: typeof DeleteJobApplicationRequestSchema;
     output: typeof DeleteJobApplicationResponseSchema;
+  },
+  /**
+   * @generated from rpc api.v1.Service.UpdateJobApplicationStatus
+   */
+  updateJobApplicationStatus: {
+    methodKind: "unary";
+    input: typeof UpdateJobApplicationStatusRequestSchema;
+    output: typeof UpdateJobApplicationStatusResponseSchema;
   },
 }> = /*@__PURE__*/
   serviceDesc(file_api_v1_api, 0);

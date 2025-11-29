@@ -19,6 +19,7 @@ type Service interface {
 	ListJobApplications(ctx context.Context, req *api.ListJobApplicationsRequest) (*api.ListJobApplicationsResponse, error)
 	UpdateJobApplication(ctx context.Context, req *api.UpdateJobApplicationRequest) (*api.UpdateJobApplicationResponse, error)
 	DeleteJobApplication(ctx context.Context, req *api.DeleteJobApplicationRequest) (*api.DeleteJobApplicationResponse, error)
+	UpdateJobApplicationStatus(ctx context.Context, req *api.UpdateJobApplicationStatusRequest) (*api.UpdateJobApplicationStatusResponse, error)
 }
 
 type service struct {
@@ -48,6 +49,7 @@ func (s *service) CreateJobApplication(ctx context.Context, req *api.CreateJobAp
 		CoverLetter: stringPtrFromValue(req.CoverLetter),
 		AppliedOn:   req.AppliedOn.AsTime(),
 		Status:      kiseki.JobApplicationStatus(req.Status),
+		Position:    req.Position,
 	})
 
 	if err := s.jobApplicationRepository.Save(ctx, &jobApplication); err != nil {
@@ -67,6 +69,7 @@ func (s *service) CreateJobApplication(ctx context.Context, req *api.CreateJobAp
 			UpdatedAt:   timestamppb.New(jobApplication.UpdatedAt),
 			AppliedOn:   timestamppb.New(jobApplication.AppliedOn),
 			Status:      api.JobApplicationStatus(jobApplication.Status),
+			Position:    jobApplication.Position,
 		},
 	}, nil
 }
@@ -125,6 +128,7 @@ func (s *service) ListJobApplications(ctx context.Context, req *api.ListJobAppli
 				UpdatedAt:   timestamppb.New(ja.UpdatedAt),
 				AppliedOn:   timestamppb.New(ja.AppliedOn),
 				Status:      api.JobApplicationStatus(ja.Status),
+				Position:    ja.Position,
 			}
 		}),
 	}, nil
@@ -159,6 +163,7 @@ func (s *service) UpdateJobApplication(ctx context.Context, req *api.UpdateJobAp
 		CoverLetter: stringPtrFromValue(req.CoverLetter),
 		AppliedOn:   req.AppliedOn.AsTime(),
 		Status:      kiseki.JobApplicationStatus(req.Status),
+		Position:    req.Position,
 	})
 
 	if err := s.jobApplicationRepository.Save(ctx, ja); err != nil {
@@ -178,6 +183,53 @@ func (s *service) UpdateJobApplication(ctx context.Context, req *api.UpdateJobAp
 			UpdatedAt:   timestamppb.New(ja.UpdatedAt),
 			AppliedOn:   timestamppb.New(ja.AppliedOn),
 			Status:      api.JobApplicationStatus(ja.Status),
+			Position:    ja.Position,
+		},
+	}, nil
+}
+
+func (s *service) UpdateJobApplicationStatus(ctx context.Context, req *api.UpdateJobApplicationStatusRequest) (*api.UpdateJobApplicationStatusResponse, error) {
+	ja, err := s.jobApplicationRepository.Find(ctx, req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	if ja == nil {
+		return nil, status.Errorf(codes.NotFound, "job application not found")
+	}
+
+	userID, err := getUserID(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	if ja.UserID != userID {
+		return nil, status.Errorf(codes.PermissionDenied, "you are not allowed to update this job application")
+	}
+	ja.Status = kiseki.JobApplicationStatus(req.Status)
+
+	if req.Position != nil {
+		ja.Position = req.Position.Value
+	}
+
+	if err := s.jobApplicationRepository.Save(ctx, ja); err != nil {
+		return nil, err
+	}
+
+	return &api.UpdateJobApplicationStatusResponse{
+		JobApplication: &api.JobApplication{
+			Id:          ja.ID,
+			Company:     ja.Company,
+			Title:       ja.Title,
+			Description: stringPtr(ja.Description),
+			Notes:       stringPtr(ja.Notes),
+			Cv:          stringPtr(ja.CV),
+			CoverLetter: stringPtr(ja.CoverLetter),
+			CreatedAt:   timestamppb.New(ja.CreatedAt),
+			UpdatedAt:   timestamppb.New(ja.UpdatedAt),
+			AppliedOn:   timestamppb.New(ja.AppliedOn),
+			Status:      api.JobApplicationStatus(ja.Status),
+			Position:    ja.Position,
 		},
 	}, nil
 }
