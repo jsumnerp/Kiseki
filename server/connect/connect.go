@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"kiseki/api/v1"
@@ -17,7 +18,11 @@ import (
 // corsMiddleware adds CORS headers to allow cross-origin requests from the frontend
 func corsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+		allowedOrigin := os.Getenv("ALLOWED_ORIGIN")
+		if allowedOrigin == "" {
+			allowedOrigin = "http://localhost:5173" // Default for local development
+		}
+		w.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "*")
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
@@ -71,6 +76,12 @@ func NewServer(svc service.Service, jwtSecret []byte) *http.Server {
 
 	mux.Handle(path, handler)
 
+	// Health check endpoint
+	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("OK"))
+	})
+
 	// Wrap mux with CORS and logging middleware
 	corsHandler := corsMiddleware(mux)
 	loggedHandler := loggingMiddleware(corsHandler)
@@ -79,8 +90,14 @@ func NewServer(svc service.Service, jwtSecret []byte) *http.Server {
 	p.SetHTTP1(true)
 	p.SetUnencryptedHTTP2(true)
 
+	// Get port from environment or default to 8080
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	s := http.Server{
-		Addr:      "localhost:8080",
+		Addr:      ":" + port,
 		Handler:   loggedHandler,
 		Protocols: p,
 	}
