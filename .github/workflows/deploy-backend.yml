@@ -26,12 +26,14 @@ jobs:
         with:
           go-version: "1.24"
           cache: true
-          cache-dependency-path: go.sum
+          cache-dependency-path: server/go.sum
 
       - name: Run tests
+        working-directory: ./server
         run: go test -v ./...
 
       - name: Build (verification)
+        working-directory: ./server
         run: go build -v ./cmd
 
       - name: Setup Fly CLI
