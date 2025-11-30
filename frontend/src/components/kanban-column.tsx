@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { dropTargetForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import { extractClosestEdge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
 import invariant from "tiny-invariant";
 import { JobApplicationStatus, type JobApplication } from "@/api/v1/api_pb";
 import { KanbanCard } from "@/components/kanban-card";
@@ -50,11 +51,12 @@ export const KanbanColumn = ({
 
         if (cardDropTarget) {
           const targetIndex = cardDropTarget.data.index as number;
-          const isDropAbove = cardDropTarget.data.isDropAbove as boolean;
+          const closestEdge = extractClosestEdge(cardDropTarget.data);
 
-          // If dropping above, insert before (at the card's index)
-          // If dropping below, insert after (at the card's index + 1)
-          const insertIndex = isDropAbove ? targetIndex : targetIndex + 1;
+          // If dropping above (top edge), insert before (at the card's index)
+          // If dropping below (bottom edge), insert after (at the card's index + 1)
+          const insertIndex =
+            closestEdge === "top" ? targetIndex : targetIndex + 1;
           onDrop(jobApplicationId, status, insertIndex);
         } else {
           // Dropped on empty space in column - add to end
