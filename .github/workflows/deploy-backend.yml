@@ -34,7 +34,7 @@ jobs:
 
       - name: Build (verification)
         working-directory: ./server
-        run: go build -v ./cmd
+        run: go build -v -o /tmp/server ./cmd
 
       - name: Setup Fly CLI
         uses: superfly/flyctl-actions/setup-flyctl@master
