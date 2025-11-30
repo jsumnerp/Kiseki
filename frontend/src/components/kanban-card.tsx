@@ -4,6 +4,10 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { dropTargetForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import {
+  attachClosestEdge,
+  extractClosestEdge,
+} from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge";
 import invariant from "tiny-invariant";
 
 export interface KanbanCardProps {
@@ -45,28 +49,29 @@ export const KanbanCard = ({
     const cleanupDropTarget = dropTargetForElements({
       element: el,
       getData: ({ input, element }) => {
-        const rect = element.getBoundingClientRect();
-        const midpoint = rect.top + rect.height / 2;
-        const isDropAbove = input.clientY < midpoint;
-
-        return {
+        const data = {
           type: "card",
           index,
-          isDropAbove,
         };
+
+        return attachClosestEdge(data, {
+          element,
+          input,
+          allowedEdges: ["top", "bottom"],
+        });
       },
       onDragEnter: ({ self, source }) => {
         // Don't show indicator when dragging over itself
         if (source.data.jobApplicationId === id) return;
 
-        const isDropAbove = self.data.isDropAbove as boolean;
-        setDropIndicator(isDropAbove ? "above" : "below");
+        const closestEdge = extractClosestEdge(self.data);
+        setDropIndicator(closestEdge === "top" ? "above" : "below");
       },
       onDrag: ({ self, source }) => {
         if (source.data.jobApplicationId === id) return;
 
-        const isDropAbove = self.data.isDropAbove as boolean;
-        setDropIndicator(isDropAbove ? "above" : "below");
+        const closestEdge = extractClosestEdge(self.data);
+        setDropIndicator(closestEdge === "top" ? "above" : "below");
       },
       onDragLeave: () => setDropIndicator(null),
       onDrop: () => setDropIndicator(null),
