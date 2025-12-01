@@ -8,6 +8,11 @@ interface AuthState {
   setAuth: (session: Session | null) => void;
 }
 
+// Create a single promise for auth initialization - called only once
+export const authInitPromise = supabase.auth
+  .getSession()
+  .then(({ data: { session } }) => session);
+
 export const useAuthStore = create<AuthState>((set) => {
   // Subscribe to auth changes
   supabase.auth.onAuthStateChange((_event, session) => {
@@ -15,7 +20,7 @@ export const useAuthStore = create<AuthState>((set) => {
   });
 
   // Initialize with current session
-  supabase.auth.getSession().then(({ data: { session } }) => {
+  authInitPromise.then((session) => {
     set({ user: session?.user ?? null, session });
   });
 
