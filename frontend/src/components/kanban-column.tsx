@@ -95,6 +95,7 @@ export const KanbanColumn = ({
           </DialogTrigger>
 
           <ApplicationModal
+            key={job.id}
             jobApplication={job}
             jobApplications={allApplications}
             onClose={() => setOpenDialogId(null)}

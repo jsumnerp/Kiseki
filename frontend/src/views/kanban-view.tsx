@@ -24,6 +24,7 @@ export const KanbanView = () => {
             </Button>
           </DialogTrigger>
           <ApplicationModal
+            key={open ? "open" : "closed"}
             jobApplications={jobApplications}
             onClose={() => setOpen(false)}
           />
