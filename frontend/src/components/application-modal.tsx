@@ -120,6 +120,32 @@ export const ApplicationModal = ({
     },
   });
 
+  // Reset form when jobApplication changes (including when opening a new modal)
+  useEffect(() => {
+    form.reset({
+      company: company || "",
+      title: title || "",
+      status: status ?? JobApplicationStatus.APPLIED,
+      description: description || "",
+      cv: undefined,
+      coverLetter: coverLetter || "",
+      appliedOn: appliedOn
+        ? timestampDate(appliedOn).toISOString().slice(0, 10)
+        : "",
+      notes: notes || "",
+    });
+  }, [
+    jobApplication,
+    company,
+    title,
+    status,
+    description,
+    coverLetter,
+    appliedOn,
+    notes,
+    form,
+  ]);
+
   async function onSubmit(values: z.infer<typeof applicationFormSchema>) {
     let cvPath: string | undefined;
 
